@@ -1,16 +1,74 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-Light.ttf");
+    font-weight: 300;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-Regular.ttf");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-Medium.ttf");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-SemiBold.ttf");
+    font-weight: 600;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-Bold.ttf");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-ExtraBold.ttf");
+    font-weight: 800;
+}
+@font-face {
+    font-family: "Gilroy";
+    src: url("../public/fonts/gilroy/Gilroy-Black.ttf");
+    font-weight: 900;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Light.ttf");
+    font-weight: 300;
 }
-
-* {
-  box-sizing: border-box;
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Regular.ttf");
+    font-weight: 400;
 }
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Medium.ttf");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Semibold.ttf");
+    font-weight: 600;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Bold.ttf");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Extrabold.ttf");
+    font-weight: 800;
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/inter/Inter-Black.ttf");
+    font-weight: 900;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

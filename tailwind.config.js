@@ -10,7 +10,6 @@ module.exports = {
 			fontFamily: {
 				sans: ["Inter", ...defaultTheme.fontFamily.sans],
 				gilroy: ["Gilroy", "sans-serif"]
-				// inter: ["Inter", "sans-serif"]
 			}
 		}
 	},

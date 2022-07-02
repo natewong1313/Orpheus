@@ -1,9 +1,9 @@
 import React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { MdOutlineShoppingBag } from "react-icons/md"
+import { RiShoppingBagLine } from "react-icons/ri"
 import { HiChevronDown } from "react-icons/hi"
-import OrpheusLogo from "@/public/orpheus.svg"
+import OrpheusLogo from "@/public/orpheus.png"
 
 const NavItems = [
 	{
@@ -54,7 +54,7 @@ const Navbar = () => {
 						{/* Logo Element */}
 						<Link href="/">
 							<a className="flex flex-row space-x-3 items-center">
-								<Image src={OrpheusLogo} width={34} height={34}/>
+								<Image src={OrpheusLogo} width={34} height={34} loading="eager" priority={true}/>
 								<h1 className="font-gilroy font-bold text-xl">Orpheus</h1>
 							</a>
 						</Link>
@@ -71,7 +71,7 @@ const Navbar = () => {
 					<div className="flex">
 						<Link href="/cart">
 							<a className="flex space-x-1 items-center py-2 px-3 rounded-md hover:bg-gray-100 text-gray-700">
-								<MdOutlineShoppingBag size={28}/>
+								<RiShoppingBagLine size={28}/>
 								<p className="font-bold text-md">0</p>
 							</a>
 						</Link>
@@ -96,17 +96,19 @@ const NavbarItemWithSubcategory = ({ navItem }) => {
 	return (
 		<>
 			<div className="group">
-				<div className="cursor-pointer flex items-center space-x-1 text-gray-500 hover:text-black">
+				<div className="cursor-pointer flex items-center space-x-1 text-gray-500 group-hover:text-black">
 					<span className="font-medium text-sm">
 						{navItem.name}
 					</span>
 					<HiChevronDown size={18}/>
 				</div>
-				<div className="absolute hidden group-hover:block">
-					<div className="mt-7 w-auto max-w-sm h-auto ml-0 border border-gray-200 rounded-b-lg bg-white">
+				{/**/}
+				<div className="absolute z-50 hidden group-hover:block">
+					<div
+						className="mt-7 w-auto max-w-sm h-auto ml-0 border border-gray-200 border-t-transparent rounded-b-lg bg-white">
 						<ul className="py-2 px-5">
 							{navItem.subcategories.map(subCategory =>
-								<li className="text-gray-500 text-sm font-medium hover:text-black py-2">
+								<li className="text-gray-500 text-sm font-medium hover:text-black py-2" key={subCategory.href}>
 									<Link href={subCategory.href}>
 										{subCategory.name}
 									</Link>

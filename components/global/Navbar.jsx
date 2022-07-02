@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { RiShoppingBagLine } from "react-icons/ri"
 import { HiChevronDown } from "react-icons/hi"
-import OrpheusLogo from "@/public/orpheus.png"
+import OrpheusLogo from "@/public/photos/orpheus.png"
 
 const NavItems = [
 	{
@@ -45,9 +45,10 @@ const NavItems = [
 ]
 
 const Navbar = () => {
+	const cartItems = [{}, {}]
 	return (
 		<header className="py-4 border-b border-b-gray-200">
-			<div className="max-w-6xl 2xl:max-w-7xl mx-auto">
+			<div className="max-w-6xl 2xl:max-w-7xl mx-auto px-4 xl:px-0">
 				{/* Left Side */}
 				<div className="relative flex justify-between items-center">
 					<div className="flex space-x-12">
@@ -70,9 +71,13 @@ const Navbar = () => {
 					{/* Right Side */}
 					<div className="flex">
 						<Link href="/cart">
-							<a className="flex space-x-1 items-center py-2 px-3 rounded-md hover:bg-gray-100 text-gray-700">
-								<RiShoppingBagLine size={28}/>
-								<p className="font-bold text-md">0</p>
+							<a className="inline-block relative py-1.5 text-gray-600">
+								<RiShoppingBagLine size={32}/>
+								{/* Cart items count */}
+								{cartItems.length > 0 && <span
+									className="absolute top-0 -right-2 block py-0.5 px-1.5 text-xs font-light rounded-full ring-2 ring-white bg-sky-500 text-white">
+									{cartItems.length}
+								</span>}
 							</a>
 						</Link>
 					</div>
@@ -102,17 +107,16 @@ const NavbarItemWithSubcategory = ({ navItem }) => {
 					</span>
 					<HiChevronDown size={18}/>
 				</div>
-				{/**/}
 				<div className="absolute z-50 hidden group-hover:block">
 					<div
 						className="mt-7 w-auto max-w-sm h-auto ml-0 border border-gray-200 border-t-transparent rounded-b-lg bg-white">
 						<ul className="py-2 px-5">
 							{navItem.subcategories.map(subCategory =>
-								<li className="text-gray-500 text-sm font-medium hover:text-black py-2" key={subCategory.href}>
-									<Link href={subCategory.href}>
+								<Link href={subCategory.href} key={subCategory.href}>
+									<li className="text-gray-500 text-sm font-medium hover:text-black py-2 cursor-pointer">
 										{subCategory.name}
-									</Link>
-								</li>
+									</li>
+								</Link>
 							)}
 						</ul>
 					</div>

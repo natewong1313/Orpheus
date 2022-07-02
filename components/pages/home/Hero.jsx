@@ -6,7 +6,14 @@ const Hero = () => {
 	return (
 		<div className="relative h-[40rem]">
 			{/* Background image */}
-			<Image src={HeroImg} objectFit="cover" layout="fill" loading="eager" priority={true}/>
+			<Image
+				src={HeroImg}
+				objectFit="cover"
+				layout="fill"
+				loading="eager"
+				priority={true}
+				draggable={false}
+			/>
 			<div className="absolute h-full w-full bg-gray-800 opacity-80"/>
 			<div className="absolute h-full w-full z-10">
 				<div className="relative h-full px-10 text-center">

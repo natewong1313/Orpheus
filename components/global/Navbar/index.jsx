@@ -60,7 +60,7 @@ const Navbar = () => {
 					</button>
 					<div className="flex space-x-12">
 						{/* Logo Element */}
-						<Link href="/components/pages">
+						<Link href="/">
 							<a className="flex flex-row space-x-3 items-center">
 								<Image src={OrpheusLogo} width={34} height={34} loading="eager" priority={true}/>
 								<h1 className="font-gilroy font-bold text-xl">Orpheus</h1>

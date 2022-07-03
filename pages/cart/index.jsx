@@ -40,7 +40,7 @@ const CartPage = () => {
 
 const CartItemsList = ({ cartItems }) => {
 	return (
-		<div className="md:col-span-2 flex flex-col space-y-6 order-2 md:order-1">
+		<div className="md:col-span-2 flex flex-col space-y-6 order-2 md:order-1 pt-6 md:pt-0">
 			<CartItem cartItem={cartItems[0]}/>
 			<CartItem cartItem={cartItems[0]}/>
 			<CartItem cartItem={cartItems[0]}/>
@@ -59,7 +59,7 @@ const CartItemsList = ({ cartItems }) => {
 
 const CartItem = ({ cartItem }) => {
 	return (
-		<div className="flex flex-row space-x-4 w-full md:pr-8">
+		<div className="flex flex-row items-center space-x-4 w-full md:pr-8">
 			{/* Product image */}
 			<div className="relative h-32 w-32 rounded-md overflow-hidden">
 				<Image
@@ -70,7 +70,7 @@ const CartItem = ({ cartItem }) => {
 					draggable={false}
 				/>
 			</div>
-			<div className="flex flex-col space-y-1 py-3 w-full">
+			<div className="flex flex-col space-y-1 w-full">
 				<div className="flex justify-between w-full space-x-2">
 					<h1 className="font-medium">{cartItem.title}</h1>
 					<h1 className="font-bold flex flex-row items-center">
@@ -128,7 +128,7 @@ const CartItem = ({ cartItem }) => {
 					{/*</div>*/}
 				</div>
 			</div>
-			<div>
+			<div className="mb-auto">
 				<button className="text-gray-400 p-1 rounded-full hover:bg-slate-100">
 					<CgClose size={20}/>
 				</button>

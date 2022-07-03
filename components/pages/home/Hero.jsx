@@ -4,7 +4,7 @@ import HeroImg from "@/public/pexels-tembela-bohle-1884581.jpg"
 
 const Hero = () => {
 	return (
-		<div className="relative h-[40rem]">
+		<div className="relative h-[32rem] md:h-[40rem]">
 			{/* Background image */}
 			<Image
 				src={HeroImg}

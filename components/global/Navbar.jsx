@@ -127,7 +127,14 @@ const MobileNav = ({ showMobileNav, setShowMobileNav }) => {
 								<div className="flex border-b border-b-gray-200 px-4 pb-4 justify-between">
 									<Link href="/">
 										<a className="">
-											<Image src={OrpheusLogo} width={34} height={34} loading="eager" priority={true}/>
+											<Image
+												src={OrpheusLogo}
+												width={34}
+												height={34}
+												loading="eager"
+												priority={true}
+												draggable={false}
+											/>
 										</a>
 									</Link>
 									{/* Close Button */}

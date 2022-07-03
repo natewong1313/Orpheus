@@ -27,7 +27,7 @@ const CartPage = () => {
 				<div className="text-center flex flex-col items-center">
 					<h1 className="font-bold text-3xl">Shopping Cart</h1>
 					{cartItems.length > 0 ?
-						<div className="grid grid-cols-3 gap-4 w-full text-left pt-6 px-6">
+						<div className="grid md:grid-cols-3 gap-4 w-full text-left pt-6 px-6">
 							<CartItemsList cartItems={cartItems}/>
 							<OrderSummary/>
 						</div> :
@@ -41,11 +41,19 @@ const CartPage = () => {
 
 const CartItemsList = ({ cartItems }) => {
 	return (
-		<div className="col-span-2 flex flex-col space-y-6">
+		<div className="md:col-span-2 flex flex-col space-y-6 order-2 md:order-1">
 			<CartItem cartItem={cartItems[0]}/>
 			<CartItem cartItem={cartItems[0]}/>
 			<CartItem cartItem={cartItems[0]}/>
-
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
+			<CartItem cartItem={cartItems[0]}/>
 		</div>
 	)
 }
@@ -53,11 +61,6 @@ const CartItemsList = ({ cartItems }) => {
 const CartItem = ({ cartItem }) => {
 	return (
 		<div className="flex flex-row space-x-4 w-full pr-8">
-			{/*<div className="flex items-center">*/}
-			{/*	<button className="text-gray-400 p-1 rounded-full hover:bg-gray-200 ">*/}
-			{/*		<CgClose size={20}/>*/}
-			{/*	</button>*/}
-			{/*</div>*/}
 			{/* Product image */}
 			<div className="relative h-32 w-32 rounded-md overflow-hidden">
 				<Image
@@ -137,13 +140,13 @@ const CartItem = ({ cartItem }) => {
 
 const OrderSummary = () => {
 	return (
-		<div className="border border-gray-200 rounded-lg p-4 flex-row space-y-3 h-min">
+		<div className="border border-gray-200 rounded-lg p-4 flex-row space-y-3 h-min order-1 md:order-2">
 			<h1 className="font-bold text-xl">Order Summary</h1>
 			<div>
 				<h2 className="font-medium text-sm">Promo Code</h2>
 				{/* Promo code form */}
 				<form className="mt-1 sm:flex sm:items-center">
-					<div className="w-full sm:max-w-xs">
+					<div className="w-full md:max-w-xs">
 						<input
 							type="email"
 							name="email"

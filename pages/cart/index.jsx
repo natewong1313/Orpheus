@@ -1,10 +1,12 @@
 import React from "react"
+import { useRouter } from "next/router"
 import Navbar from "@/components/global/Navbar"
 import EmptyCart from "@/components/pages/cart/EmptyCart"
 import OrderSummary from "@/components/pages/cart/OrderSummary"
 import CartItem from "@/components/pages/cart/CartItem"
 
 const CartPage = () => {
+	const router = useRouter()
 	const cartItems = [
 		{
 			id: "cfa888ea-c7cf-4fda-85ad-068395e69131",
@@ -18,6 +20,9 @@ const CartPage = () => {
 			available: true
 		}
 	]
+	const onCheckoutBtnClick = () => {
+		router.push("/checkout")
+	}
 	return (
 		<div>
 			<Navbar/>
@@ -42,7 +47,7 @@ const CartPage = () => {
 								<CartItem cartItem={cartItems[0]}/>
 								<CartItem cartItem={cartItems[0]}/>
 							</div>
-							<OrderSummary/>
+							<OrderSummary onCheckoutBtnClick={onCheckoutBtnClick}/>
 						</div> :
 						<EmptyCart/>
 					}

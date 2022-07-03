@@ -50,8 +50,8 @@ const Navbar = () => {
 	const cartItems = [{}, {}]
 	const [showMobileNav, setShowMobileNav] = useState(false)
 	return (
-		<header className="py-4 border-b border-b-gray-200">
-			<div className="max-w-6xl 2xl:max-w-7xl mx-auto px-6 md:px-4 xl:px-0">
+		<header className="py-4 border-b border-b-gray-200 bg-white">
+			<div className="px-4 sm:px-6 md:px-8">
 				{/* Left Side */}
 				<div className="relative flex justify-between items-center">
 					{/* Mobile nav toggle */}

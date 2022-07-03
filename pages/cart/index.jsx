@@ -3,7 +3,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { ImArrowRight2 } from "react-icons/im"
 import { CgClose } from "react-icons/cg"
-import { RiCloseCircleFill } from "react-icons/ri"
 import Navbar from "@/components/global/Navbar"
 
 const CartPage = () => {
@@ -27,7 +26,7 @@ const CartPage = () => {
 				<div className="text-center flex flex-col items-center">
 					<h1 className="font-bold text-3xl">Shopping Cart</h1>
 					{cartItems.length > 0 ?
-						<div className="grid md:grid-cols-3 gap-4 w-full text-left pt-6 px-6">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full text-left pt-6 px-6">
 							<CartItemsList cartItems={cartItems}/>
 							<OrderSummary/>
 						</div> :
@@ -60,7 +59,7 @@ const CartItemsList = ({ cartItems }) => {
 
 const CartItem = ({ cartItem }) => {
 	return (
-		<div className="flex flex-row space-x-4 w-full pr-8">
+		<div className="flex flex-row space-x-4 w-full md:pr-8">
 			{/* Product image */}
 			<div className="relative h-32 w-32 rounded-md overflow-hidden">
 				<Image

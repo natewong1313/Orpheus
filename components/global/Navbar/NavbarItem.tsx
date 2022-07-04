@@ -1,7 +1,11 @@
 import React from "react"
 import Link from "next/link"
+import { NavItem } from "@/components/global/Navbar/types"
 
-const NavbarItem = ({ navItem }) => {
+type Props = {
+	navItem: NavItem
+}
+const NavbarItem = ({ navItem }: Props) => {
 	return (
 		<Link href={navItem.href}>
 			<a className="font-medium text-gray-500 hover:text-black">

@@ -1,7 +1,10 @@
 import React from "react"
 import Head from "next/head"
 
-const Layout = ({ children }) => {
+type Props = {
+	children: JSX.Element
+}
+const Layout = ({ children }: Props) => {
 	return (
 		<div>
 			<Head>

@@ -1,11 +1,13 @@
 import Stripe from "stripe"
 import { getCookie } from "cookies-next"
+import type { NextApiRequest, NextApiResponse } from "next"
+import type { CreateCheckoutResponse } from "@/pages/api/checkout/types"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 	apiVersion: "2020-08-27"
 })
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<CreateCheckoutResponse>) {
 	if (req.method !== "POST") {
 		return res.status(405).json({ success: false, message: "Request method not allowed" })
 	}
@@ -28,7 +30,7 @@ export default async function handler(req, res) {
 		})
 		return res.status(200).json({
 			success: true,
-			"clientCheckoutSession": paymentIntent.client_secret
+			clientCheckoutSession: paymentIntent.client_secret
 		})
 	} catch (err) {
 		console.log(err)

@@ -1,14 +1,19 @@
 import React, { useState } from "react"
 import { RadioGroup } from "@headlessui/react"
+import type { ShippingMethod } from "@/components/pages/checkout/types"
 
-const ShippingMethod = ({ checkoutStep, setCheckoutStep }) => {
+type Props = {
+	checkoutStep: number
+	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+}
+const ShippingMethodForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 2
 	const onFormSubmit = () => {
 		setCheckoutStep(3)
 	}
 	const formComplete = checkoutStep !== 2
 
-	const shippingMethods = [
+	const shippingMethods: ShippingMethod[] = [
 		{ title: "USPS Priority Mail", estimatedDelivery: "2-3 days", price: 8.99 },
 		{ title: "USPS Parcel Select", estimatedDelivery: "7 days", price: 7.99 },
 		{ title: "USPS Priority Mail Express", estimatedDelivery: "1-2 days", price: 14.99 }
@@ -38,7 +43,7 @@ const ShippingMethod = ({ checkoutStep, setCheckoutStep }) => {
 									value={shippingMethod.title}
 									className={({ checked }) => `relative border p-4 flex items-center cursor-pointer focus:outline-none 
 										${shippingMethodIdx === 0 ? "rounded-tl-md rounded-tr-md " : " "} 
-										${shippingMethodIdx === shippingMethod.length - 1 ? "rounded-bl-md rounded-br-md " : " "}
+										${shippingMethodIdx === shippingMethods.length - 1 ? "rounded-bl-md rounded-br-md " : " "}
 										${checked ? "bg-sky-50 border-sky-200 z-10" : "border-slate-200"}
 									`}
 								>
@@ -98,4 +103,4 @@ const ShippingMethod = ({ checkoutStep, setCheckoutStep }) => {
 	)
 }
 
-export default ShippingMethod
+export default ShippingMethodForm

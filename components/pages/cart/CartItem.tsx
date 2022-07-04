@@ -1,8 +1,12 @@
 import React from "react"
 import Image from "next/image"
 import { CgClose } from "react-icons/cg"
+import type { CartItemType } from "@/components/pages/cart/types"
 
-const CartItem = ({ cartItem }) => {
+type Props = {
+	cartItem: CartItemType
+}
+const CartItem = ({ cartItem }: Props) => {
 	return (
 		<div className="flex flex-row items-center space-x-4 w-full">
 			{/* Product image */}

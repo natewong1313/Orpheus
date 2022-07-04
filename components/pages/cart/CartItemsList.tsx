@@ -1,7 +1,11 @@
 import React from "react"
 import CartItem from "@/components/pages/cart/CartItem"
+import type { CartItemType } from "@/components/pages/cart/types"
 
-const CartItemsList = ({ cartItems }) => {
+type Props = {
+	cartItems: CartItemType[]
+}
+const CartItemsList = ({ cartItems }: Props) => {
 	return (
 		<div
 			className="flex-1 md:max-w-6xl md:mx-auto py-4 md:py-10 px-4 sm:px-6 md:px-8 divide-y divide-gray-200 md:col-span-2 order-2 md:order-1">

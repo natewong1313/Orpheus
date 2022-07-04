@@ -6,8 +6,14 @@ import OrpheusLogo from "@/public/photos/orpheus.png"
 import { RiCloseLine } from "react-icons/ri"
 import MobileNavItem from "@/components/global/Navbar/MobileNavItem"
 import MobileNavItemWithSubcategory from "@/components/global/Navbar/MobileNavItemWithSubcategory"
+import { NavItem } from "@/components/global/Navbar/types"
 
-const MobileNavPopover = ({ showMobileNav, setShowMobileNav, navItems }) => {
+type Props = {
+	showMobileNav: boolean
+	setShowMobileNav: React.Dispatch<React.SetStateAction<boolean>>
+	navItems: NavItem[]
+}
+const MobileNavPopover = ({ showMobileNav, setShowMobileNav, navItems }: Props) => {
 	return (
 		<Transition.Root show={showMobileNav} as={Fragment}>
 			<Dialog as="div" className="relative z-20 md:hidden" onClose={setShowMobileNav}>

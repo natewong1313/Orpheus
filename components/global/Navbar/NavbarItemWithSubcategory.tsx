@@ -1,8 +1,12 @@
 import React from "react"
 import { HiChevronDown } from "react-icons/hi"
 import Link from "next/link"
+import { NavItem } from "@/components/global/Navbar/types"
 
-const NavbarItemWithSubcategory = ({ navItem }) => {
+type Props = {
+	navItem: NavItem
+}
+const NavbarItemWithSubcategory = ({ navItem }: Props) => {
 	return (
 		<>
 			<div className="group">

@@ -6,8 +6,9 @@ import OrpheusLogo from "@/public/photos/orpheus.png"
 import MobileNavPopover from "@/components/global/Navbar/MobileNavPopover"
 import NavbarItem from "@/components/global/Navbar/NavbarItem"
 import NavbarItemWithSubcategory from "@/components/global/Navbar/NavbarItemWithSubcategory"
+import type { NavItem } from "@/components/global/Navbar/types"
 
-const NavItems = [
+const NavItems: NavItem[] = [
 	{
 		name: "Category #1",
 		href: "/category1",

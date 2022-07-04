@@ -1,6 +1,11 @@
 import React from "react"
 
-const FormSelect = ({ id, name, autoComplete }) => {
+type Props = {
+	id: string
+	name: string
+	autoComplete?: string
+}
+const FormSelect = ({ id, name, autoComplete }: Props) => {
 	return (
 		<select
 			id={id}

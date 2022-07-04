@@ -2,8 +2,12 @@ import React, { useState } from "react"
 import { HiMinus, HiPlus } from "react-icons/hi"
 import { Transition } from "@headlessui/react"
 import Link from "next/link"
+import { NavItem } from "@/components/global/Navbar/types"
 
-const MobileNavItemWithSubcategory = ({ navItem }) => {
+type Props = {
+	navItem: NavItem
+}
+const MobileNavItemWithSubcategory = ({ navItem }: Props) => {
 	const [showSubCategories, setShowSubCategories] = useState(false)
 	return (
 		<>

@@ -3,7 +3,11 @@ import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect from "@/components/pages/checkout/FormSelect"
 
-const ShippingDetails = ({ checkoutStep, setCheckoutStep }) => {
+type Props = {
+	checkoutStep: number
+	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+}
+const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 1
 	const onFormSubmit = () => {
 		setCheckoutStep(2)
@@ -138,4 +142,4 @@ const ShippingDetails = ({ checkoutStep, setCheckoutStep }) => {
 	)
 }
 
-export default ShippingDetails
+export default ShippingAddressForm

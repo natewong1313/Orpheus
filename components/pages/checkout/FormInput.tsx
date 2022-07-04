@@ -1,6 +1,13 @@
 import React from "react"
 
-const FormInput = ({ type, name, id, autoComplete, placeholder }) => {
+type Props = {
+	type: string
+	id: string
+	name: string
+	autoComplete?: string
+	placeholder?: string
+}
+const FormInput = ({ type, id, name, autoComplete, placeholder }: Props) => {
 	return (
 		<div>
 			<input

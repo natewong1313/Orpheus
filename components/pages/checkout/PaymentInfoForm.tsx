@@ -42,7 +42,11 @@ const stripeElementOptions = {
 	}
 }
 
-const PaymentDetails = ({ checkoutStep, setCheckoutStep }) => {
+type Props = {
+	checkoutStep: number
+	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+}
+const PaymentInfoForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 3
 	const onFormSubmit = () => {
 		setCheckoutStep(0)
@@ -115,7 +119,6 @@ const PaymentDetails = ({ checkoutStep, setCheckoutStep }) => {
 									id="country"
 									name="country"
 									autoComplete="country-name"
-									placeholder="Select country"
 								/>
 							</div>
 
@@ -190,4 +193,4 @@ const PaymentDetails = ({ checkoutStep, setCheckoutStep }) => {
 	)
 }
 
-export default PaymentDetails
+export default PaymentInfoForm

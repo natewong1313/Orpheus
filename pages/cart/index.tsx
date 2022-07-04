@@ -4,11 +4,12 @@ import Navbar from "@/components/global/Navbar"
 import EmptyCart from "@/components/pages/cart/EmptyCart"
 import OrderSummary from "@/components/pages/cart/OrderSummary"
 import CartItemsList from "@/components/pages/cart/CartItemsList"
-import checkHasCurrentCheckoutSession from "@/utils/checkHasCurrentCheckoutSession"
+import type { CartItemType } from "@/components/pages/cart/types"
+import type { CreateCheckoutResponse } from "@/pages/api/checkout/types"
 
 const CartPage = () => {
 	const router = useRouter()
-	const cartItems = [
+	const cartItems: CartItemType[] = [
 		{
 			id: "cfa888ea-c7cf-4fda-85ad-068395e69131",
 			title: "Mens Cotton Hooded Sweatshirt",
@@ -32,7 +33,8 @@ const CartPage = () => {
 				"amount": 200.00 * 100
 			})
 		})
-		const { success, clientCheckoutSession } = await response.json()
+
+		const { success, clientCheckoutSession }: CreateCheckoutResponse = await response.json()
 		if (success) {
 			// router.push("/checkout")
 		}

@@ -1,8 +1,6 @@
 import React from "react"
 import Link from "next/link"
 import { HiArrowLeft } from "react-icons/hi"
-import Image from "next/image"
-import OrpheusLogo from "@/public/photos/orpheus.png"
 
 const Navbar = () => {
 	return (

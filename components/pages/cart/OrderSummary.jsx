@@ -20,7 +20,7 @@ const OrderSummaryOld = ({ onCheckoutBtnClick }) => {
 					</div>
 					<button
 						type="button"
-						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-auto sm:ml-3 mt-2 sm:mt-0 hover:bg-gray-800"
+						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-auto sm:ml-3 mt-2 sm:mt-0 hover:bg-slate-800"
 					>
 						Apply
 					</button>
@@ -74,7 +74,7 @@ const OrderSummary = ({ onCheckoutBtnClick }) => {
 							name="email"
 							id="email"
 							spellCheck={false}
-							className="text-sm text-slate-600 placeholder:text-slate-400 rounded-md w-full focus:ring-blue-200 focus:border-blue-200 border-slate-200 shadow-sm"
+							className="text-sm rounded-md w-full focus:ring-blue-200 focus:border-blue-200 border-slate-200 shadow-sm placeholder:text-slate-400 focus:placeholder:text-slate-300"
 							placeholder="Enter code"
 						/>
 					</div>

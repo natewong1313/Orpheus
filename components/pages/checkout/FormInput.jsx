@@ -10,7 +10,7 @@ const FormInput = ({ type, name, id, autoComplete, placeholder }) => {
 				placeholder={placeholder}
 				autoComplete={autoComplete}
 				spellCheck={false}
-				className="mt-1 block w-full text-sm rounded-md focus:ring-blue-200 focus:border-blue-200 border-gray-300 placeholder:text-gray-400 focus:placeholder:text-gray-300"
+				className="mt-1 block w-full text-sm rounded-md focus:ring-blue-200 focus:border-blue-200 border-slate-200 shadow-sm placeholder:text-slate-400 focus:placeholder:text-slate-300"
 			/>
 		</div>
 	)

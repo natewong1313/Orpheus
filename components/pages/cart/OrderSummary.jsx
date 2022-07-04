@@ -42,7 +42,7 @@ const OrderSummaryOld = ({ onCheckoutBtnClick }) => {
 			</div>
 			<div>
 				<button
-					className="mt-3 bg-sky-500 text-white font-bold rounded-md py-2.5 w-full hover:bg-sky-600"
+					className="mt-3 bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
 					onClick={onCheckoutBtnClick}
 				>
 					Checkout

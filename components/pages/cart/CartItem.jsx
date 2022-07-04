@@ -32,7 +32,7 @@ const CartItem = ({ cartItem }) => {
 					{/* Size select */}
 					<div>
 						<select
-							className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-gray-200 shadow-sm focus:outline-none focus:ring-blue-200 focus:border-blue-200"
+							className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200"
 						>
 							{["Small", "Medium", "Large", "XLarge"].map(sz => <option key={sz}>{sz}</option>)}
 						</select>
@@ -40,7 +40,7 @@ const CartItem = ({ cartItem }) => {
 					{/* Quantity select */}
 					<div>
 						<select
-							className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-gray-200 shadow-sm focus:outline-none focus:ring-blue-200 focus:border-blue-200"
+							className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200"
 						>
 							{[1, 2, 3, 4, 5].map(qty => <option key={qty}>{qty}</option>)}
 						</select>

@@ -78,7 +78,7 @@ const Navbar = () => {
 					</div>
 					{/* Right Side */}
 					<div className="flex">
-						<Link href="/index">
+						<Link href="/cart">
 							<a className="inline-block relative py-1.5 text-gray-600">
 								<RiShoppingBagLine size={32}/>
 								{/* Cart items count */}

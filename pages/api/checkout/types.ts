@@ -1,5 +1,9 @@
 export type CreateCheckoutResponse = {
 	success: boolean
-	clientCheckoutSession?: string
+	clientCheckoutSession?: ClientCheckoutSession
 	message?: string
+}
+
+export type ClientCheckoutSession = {
+	clientSecret: string
 }

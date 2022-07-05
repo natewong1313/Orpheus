@@ -1,16 +1,25 @@
+import Stripe from "stripe"
 import { getCookie } from "cookies-next"
-// import Stripe from "stripe"
-//
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-// 	apiVersion: "2020-08-27"
-// })
+import type { NextApiRequest, NextApiResponse } from "next"
+import type { CreateCheckoutResponse } from "@/pages/api/checkout/types"
+import { ClientCheckoutSession } from "@/pages/api/checkout/types"
 
-// export default async function checkHasCurrentCheckoutSession(req, res) {
-// 	const clientCheckoutSession = getCookie("clientCheckoutSession", { req, res })
-// 	if (clientCheckoutSession === undefined || clientCheckoutSession === null) {
-// 		return false
-// 	}
-// 	const paymentIntent = await stripe.paymentIntents.retrieve(clientCheckoutSession.toString())
-// 	console.log(paymentIntent)
-// 	return true
-// }
+export default async function checkHasCurrentCheckoutSession(stripe: Stripe, req: NextApiRequest, res: NextApiResponse<CreateCheckoutResponse>): Promise<null | ClientCheckoutSession> {
+	const cookie = getCookie("clientCheckoutSession", { req, res })
+	if (cookie === undefined || cookie === null || typeof cookie !== "string") {
+		return null
+	}
+	try {
+		const { clientSecret }: ClientCheckoutSession = JSON.parse(cookie)
+		if (clientSecret !== undefined && clientSecret !== null) {
+			const paymentIntentId = clientSecret.split("_secret_")[0]
+			try {
+				await stripe.paymentIntents.retrieve(paymentIntentId)
+				return { clientSecret }
+			} catch (err) {
+			}
+		}
+	} catch (err) {
+	}
+	return null
+}

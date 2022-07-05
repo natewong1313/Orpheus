@@ -2,10 +2,9 @@ import React, { useState } from "react"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormSelect from "@/components/pages/checkout/FormSelect"
-import { loadStripe } from "@stripe/stripe-js"
 import { Elements, PaymentElement } from "@stripe/react-stripe-js"
+import loadStripePublic from "@/utils/stripe/loadStripePublic"
 
-const STRIPE_PROMISE = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const stripeElementOptions = {
 	clientSecret: "",
 	fonts: [{ cssSrc: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" }],
@@ -47,6 +46,7 @@ type Props = {
 	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
 }
 const PaymentInfoForm = ({ checkoutStep, setCheckoutStep }: Props) => {
+	const stripePromise = loadStripePublic()
 	const showForm = checkoutStep === 3
 	const onFormSubmit = () => {
 		setCheckoutStep(0)
@@ -65,7 +65,7 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 
 			</div>
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
-				<Elements stripe={STRIPE_PROMISE} options={stripeElementOptions}>
+				<Elements stripe={stripePromise} options={stripeElementOptions}>
 					<form action="#" method="POST">
 						<div className="grid grid-cols-6 gap-4">
 							<div className="col-span-6">

@@ -49,7 +49,7 @@ type Props = {
 const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props) => {
 	const stripePromise = loadStripePublic()
 	stripeElementOptions.clientSecret = clientSecret
-	
+
 	const showForm = checkoutStep === 3
 	const onFormSubmit = () => {
 		setCheckoutStep(0)
@@ -98,7 +98,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>First Name</FormLabel>
 								<FormInput
 									type="text"
-									name="first-name"
 									id="first-name"
 									autoComplete="given-name"
 									placeholder="Enter first name"
@@ -109,7 +108,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>Last Name</FormLabel>
 								<FormInput
 									type="text"
-									name="last-name"
 									id="last-name"
 									autoComplete="family-name"
 									placeholder="Enter last name"
@@ -120,7 +118,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>Country</FormLabel>
 								<FormSelect
 									id="country"
-									name="country"
 									autoComplete="country-name"
 								/>
 							</div>
@@ -129,7 +126,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>Address</FormLabel>
 								<FormInput
 									type="text"
-									name="street-address"
 									id="street-address"
 									autoComplete="street-address"
 									placeholder="Enter address"
@@ -139,7 +135,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>Apt / Suite</FormLabel>
 								<FormInput
 									type="text"
-									name="street-address"
 									id="street-address"
 									autoComplete="street-address"
 									placeholder="Enter apt/suite #"
@@ -150,7 +145,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>City</FormLabel>
 								<FormInput
 									type="text"
-									name="city"
 									id="city"
 									autoComplete="address-level2"
 									placeholder="Enter city"
@@ -161,7 +155,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>State</FormLabel>
 								<FormInput
 									type="text"
-									name="region"
 									id="region"
 									autoComplete="address-level1"
 									placeholder="Enter state"
@@ -172,7 +165,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 								<FormLabel>ZIP</FormLabel>
 								<FormInput
 									type="text"
-									name="postal-code"
 									id="postal-code"
 									autoComplete="postal-code"
 									placeholder="Enter ZIP code"
@@ -183,7 +175,6 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 							<button
 								type="button"
 								className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full hover:bg-slate-800 disabled:bg-slate-400 disabled:border-slate-400 disabled:hover:bg-slate-400 disabled:cursor-not-allowed"
-								// disabled={true}
 								onClick={onFormSubmit}
 							>
 								Continue

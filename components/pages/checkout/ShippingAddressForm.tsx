@@ -1,14 +1,17 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import * as yup from "yup"
 import { useFormik } from "formik"
+import { getCountries, getCountry } from "@jbreneman/country-state-list"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
-import FormSelect from "@/components/pages/checkout/FormSelect"
+import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"
 
 type Props = {
 	checkoutStep: number
 	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
 }
+const countries = getCountries()
+
 const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 1
 
@@ -23,7 +26,7 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 		address1: yup.string().required(),
 		address2: yup.string().optional(),
 		city: yup.string().required(),
-		region: yup.string().required(),
+		state: yup.string().required(),
 		zipCode: yup.number().required()
 	})
 	const formik = useFormik({
@@ -31,11 +34,11 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 			emailAddress: "",
 			firstName: "",
 			lastName: "",
-			countryName: "United States",
+			countryName: "US",
 			address1: "",
 			address2: "",
 			city: "",
-			region: "",
+			state: "",
 			zipCode: ""
 		},
 		validationSchema: formValidation,
@@ -43,7 +46,6 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 		validateOnChange: validateOnBlur,
 		enableReinitialize: true,
 		onSubmit: values => {
-			// console.log(JSON.stringify(values, null, 2))
 			setFormSubmitted(true)
 			setCheckoutStep(2)
 		}
@@ -53,6 +55,15 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 		setCheckoutStep(1)
 		setFormSubmitted(false)
 	}
+
+	const countryOptions = countries.map(country => ({ name: country.name, value: country.code }))
+	const [stateOptions, setStateOptions] = useState<FormSelectOption[]>([])
+	useEffect(() => {
+		setStateOptions(getCountry(formik.values.countryName).states.map(state => ({ name: state, value: state })))
+		if (stateOptions.length > 0) {
+			formik.setFieldValue("state", stateOptions[0].name)
+		}
+	}, [formik.values.countryName])
 
 	return (
 		<div className="flex flex-col border-b border-b-slate-200  pb-6">
@@ -64,9 +75,12 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 			</div>
 			{/* Shipping details preview*/}
 			<div className={`${formSubmitted ? "block pt-2" : "hidden"}`}>
-				<p className="text-sm text-slate-600">John Doe</p>
-				<p className="text-sm text-slate-600">Johndoe11@gmail.com</p>
-				<p className="text-sm text-slate-600">123 road st, New York, New York 12345</p>
+				<p className="text-sm text-slate-600">{formik.values.firstName} {formik.values.lastName}</p>
+				<p className="text-sm text-slate-600">{formik.values.emailAddress}</p>
+				<p className="text-sm text-slate-600">{formik.values.address1} {formik.values.address2}</p>
+				<p className="text-sm text-slate-600">
+					{formik.values.city}, {formik.values.state} {formik.values.zipCode} {formik.values.countryName}
+				</p>
 			</div>
 			{/* Shipping address form*/}
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
@@ -120,6 +134,7 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 								onChange={formik.handleChange}
 								value={formik.values.countryName}
 								hasError={"countryName" in formik.errors}
+								options={countryOptions}
 							/>
 						</div>
 
@@ -147,7 +162,6 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 								hasError={"address2" in formik.errors}
 							/>
 						</div>
-
 						<div className="col-span-6 md:col-span-2">
 							<FormLabel>City</FormLabel>
 							<FormInput
@@ -162,15 +176,14 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 						</div>
 
 						<div className="col-span-3 md:col-span-2">
-							<FormLabel>Region</FormLabel>
-							<FormInput
-								type="text"
-								id="region"
+							<FormLabel>State</FormLabel>
+							<FormSelect
+								id="state"
 								autoComplete="address-level1"
-								placeholder="Enter region"
 								onChange={formik.handleChange}
-								value={formik.values.region}
-								hasError={"region" in formik.errors}
+								value={formik.values.state}
+								hasError={"state" in formik.errors}
+								options={stateOptions}
 							/>
 						</div>
 

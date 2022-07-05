@@ -7,8 +7,13 @@ type Props = {
 	value?: string
 	autoComplete?: string
 	hasError?: boolean
+	options?: FormSelectOption[]
 }
-const FormSelect = ({ id, autoComplete, onChange, value, hasError }: Props) => {
+export type FormSelectOption = {
+	name: string
+	value: string
+}
+const FormSelect = ({ id, autoComplete, onChange, value, hasError, options }: Props) => {
 	return (
 		<select
 			id={id}
@@ -19,9 +24,9 @@ const FormSelect = ({ id, autoComplete, onChange, value, hasError }: Props) => {
 			className={`mt-1 block w-full py-2 px-3 rounded-md text-sm shadow-sm focus:ring-blue-200 focus:border-blue-200 border 
 				${hasError ? "border-red-400" : "border-slate-200"}`}
 		>
-			<option>United States</option>
-			<option>Canada</option>
-			<option>Mexico</option>
+			{typeof options !== "undefined" && options.map(option =>
+				<option value={option.value} key={option.value}>{option.name}</option>
+			)}
 		</select>
 	)
 }

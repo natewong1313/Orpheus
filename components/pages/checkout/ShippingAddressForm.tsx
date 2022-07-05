@@ -6,12 +6,12 @@ import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"
 
+const countries = getCountries()
+
 type Props = {
 	checkoutStep: number
 	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
 }
-const countries = getCountries()
-
 const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 1
 

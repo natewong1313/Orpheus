@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import * as yup from "yup"
 import { useFormik } from "formik"
 import { getCountries, getCountry } from "@jbreneman/country-state-list"
+// import stateCountry from "state-country"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"
@@ -11,6 +12,7 @@ type Props = {
 	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
 }
 const countries = getCountries()
+// const countriesList = stateCountry.getAllCountries()
 
 const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 	const showForm = checkoutStep === 1
@@ -55,7 +57,7 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 		setCheckoutStep(1)
 		setFormSubmitted(false)
 	}
-
+	// console.log(countriesList)
 	const countryOptions = countries.map(country => ({ name: country.name, value: country.code }))
 	const [stateOptions, setStateOptions] = useState<FormSelectOption[]>([])
 	useEffect(() => {

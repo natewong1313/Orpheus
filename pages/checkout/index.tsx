@@ -4,8 +4,14 @@ import OrderSummary from "@/components/pages/checkout/OrderSummary"
 import ShippingAddressForm from "@/components/pages/checkout/ShippingAddressForm"
 import ShippingMethodForm from "@/components/pages/checkout/ShippingMethodForm"
 import PaymentInfoForm from "@/components/pages/checkout/PaymentInfoForm"
+import checkHasCurrentCheckoutSession from "@/utils/checkHasCurrentCheckoutSession"
+import loadStripePrivate from "@/utils/stripe/loadStripePrivate"
+import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
 
-const CheckoutPage = () => {
+type Props = {
+	clientCheckoutSession: ClientCheckoutSession
+}
+const CheckoutPage = ({ clientCheckoutSession }: Props) => {
 	const [checkoutStep, setCheckoutStep] = useState(1)
 	return (
 		<div className="flex flex-col min-h-screen bg-gray-50">
@@ -16,7 +22,8 @@ const CheckoutPage = () => {
 						<div className="md:col-span-3 flex flex-col space-y-6 py-6 md:py-0 md:pr-8">
 							<ShippingAddressForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}/>
 							<ShippingMethodForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}/>
-							<PaymentInfoForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}/>
+							<PaymentInfoForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}
+															 clientSecret={clientCheckoutSession.clientSecret}/>
 						</div>
 						<OrderSummary/>
 					</div>
@@ -24,6 +31,20 @@ const CheckoutPage = () => {
 			</div>
 		</div>
 	)
+}
+
+export async function getServerSideProps({ req, res }) {
+	const clientCheckoutSession = await checkHasCurrentCheckoutSession(loadStripePrivate(), req, res)
+	if (clientCheckoutSession !== null) {
+		return { props: { clientCheckoutSession } }
+	} else {
+		return {
+			redirect: {
+				destination: "/cart",
+				permanent: false
+			}
+		}
+	}
 }
 
 export default CheckoutPage

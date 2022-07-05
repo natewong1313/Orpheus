@@ -5,7 +5,7 @@ import EmptyCart from "@/components/pages/cart/EmptyCart"
 import OrderSummary from "@/components/pages/cart/OrderSummary"
 import CartItemsList from "@/components/pages/cart/CartItemsList"
 import type { CartItemType } from "@/components/pages/cart/types"
-import type { CreateCheckoutResponse } from "@/pages/api/checkout/types"
+import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 
 const CartPage = () => {
 	const router = useRouter()
@@ -34,9 +34,9 @@ const CartPage = () => {
 			})
 		})
 
-		const { success, clientCheckoutSession }: CreateCheckoutResponse = await response.json()
+		const { success }: CheckoutSessionResponse = await response.json()
 		if (success) {
-			// router.push("/checkout")
+			router.push("/checkout")
 		}
 	}
 	return (

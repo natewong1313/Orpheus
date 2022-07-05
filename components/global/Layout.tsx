@@ -2,7 +2,7 @@ import React from "react"
 import Head from "next/head"
 
 type Props = {
-	children: JSX.Element
+	children: JSX.Element | JSX.Element []
 }
 const Layout = ({ children }: Props) => {
 	return (

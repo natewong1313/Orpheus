@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import * as yup from "yup"
 import { useFormik } from "formik"
-import { getCountries, getCountry } from "@jbreneman/country-state-list"
+import { getCountries, getCountry } from "@/utils/countries"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"

@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.5",
-    "@jbreneman/country-state-list": "^1.0.8",
     "@stripe/react-stripe-js": "^1.9.0",
     "@stripe/stripe-js": "^1.32.0",
     "@tailwindcss/forms": "^0.5.2",
@@ -22,10 +21,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
+    "state-country": "^1.0.8",
     "stripe": "^9.11.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@jbreneman/country-state-list": "^1.0.8",
     "@types/node": "^18.0.1",
     "@types/react": "^18.0.14",
     "autoprefixer": "^10.4.7",

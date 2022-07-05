@@ -3,21 +3,27 @@ import React from "react"
 type Props = {
 	type: string
 	id: string
-	name: string
+	// name: string
 	autoComplete?: string
 	placeholder?: string
+	onChange?: (e: React.ChangeEvent<any>) => void
+	value?: string
+	hasError?: boolean
 }
-const FormInput = ({ type, id, name, autoComplete, placeholder }: Props) => {
+const FormInput = ({ type, id, autoComplete, placeholder, onChange, value, hasError }: Props) => {
 	return (
 		<div>
 			<input
 				type={type}
 				id={id}
-				name={name}
+				name={id}
 				placeholder={placeholder}
 				autoComplete={autoComplete}
 				spellCheck={false}
-				className="mt-1 block w-full text-sm rounded-md focus:ring-blue-200 focus:border-blue-200 border-slate-200 shadow-sm placeholder:text-slate-400 focus:placeholder:text-slate-300"
+				onChange={onChange}
+				value={value}
+				className={`mt-1 block w-full text-sm rounded-md shadow-sm focus:placeholder:text-slate-300 focus:ring-blue-200 focus:border-blue-200
+				 ${hasError ? "placeholder:text-red-500 border-red-400" : "placeholder:text-slate-400 border-slate-200"}`}
 			/>
 		</div>
 	)

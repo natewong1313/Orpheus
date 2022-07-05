@@ -48,8 +48,8 @@ type Props = {
 }
 const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props) => {
 	const stripePromise = loadStripePublic()
-	console.log(clientSecret)
 	stripeElementOptions.clientSecret = clientSecret
+	
 	const showForm = checkoutStep === 3
 	const onFormSubmit = () => {
 		setCheckoutStep(0)

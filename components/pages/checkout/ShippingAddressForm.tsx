@@ -5,18 +5,38 @@ import { getCountries, getCountry } from "@/utils/countries"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"
+import type { CheckoutSession } from "@/components/pages/checkout/types"
+import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 
 const countries = getCountries()
 
 type Props = {
-	checkoutStep: number
-	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+	checkoutSession: CheckoutSession
 }
-const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
-	const showForm = checkoutStep === 1
+const ShippingAddressForm = ({ checkoutSession }: Props) => {
+	const showForm = checkoutSession.currentStep === 1
 
 	const [formSubmitted, setFormSubmitted] = useState(false)
 	const [validateOnBlur, setValidateOnBlur] = useState(false)
+
+	const onSubmit = async (values) => {
+		const response = await fetch("/api/checkout/update", {
+			method: "POST",
+			headers: {
+				"accept": "application/json",
+				"content-type": "application/json"
+			},
+			body: JSON.stringify({
+				emailAddress: formik.values.emailAddress,
+				name: `${formik.values.firstName} ${formik.values.lastName}`,
+				shippingAddress: formik.values
+			})
+		})
+		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
+			setFormSubmitted(true)
+			checkoutSession.setCurrentStep(2)
+		}
+	}
 
 	const formValidation = yup.object({
 		emailAddress: yup.string().email().required(),
@@ -45,23 +65,21 @@ const ShippingAddressForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 		validateOnBlur,
 		validateOnChange: validateOnBlur,
 		enableReinitialize: true,
-		onSubmit: values => {
-			setFormSubmitted(true)
-			setCheckoutStep(2)
-		}
+		onSubmit
 	})
 
 	const onEdit = () => {
-		setCheckoutStep(1)
+		checkoutSession.setPreviousStep(checkoutSession.currentStep)
+		checkoutSession.setCurrentStep(1)
 		setFormSubmitted(false)
 	}
 
 	const countryOptions = countries.map(country => ({ name: country.name, value: country.code }))
 	const [stateOptions, setStateOptions] = useState<FormSelectOption[]>([])
 	useEffect(() => {
-		setStateOptions(getCountry(formik.values.countryName).states.map(state => ({ name: state, value: state })))
-		if (stateOptions.length > 0) {
-			formik.setFieldValue("state", stateOptions[0].name)
+		const states = getCountry(formik.values.countryName).states.map(state => ({ name: state, value: state }))
+		setStateOptions(states)
+		if (states.length > 0) {
 		}
 	}, [formik.values.countryName])
 

@@ -1,17 +1,16 @@
 import React, { useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import type { ShippingMethod } from "@/components/pages/checkout/types"
+import type { CheckoutSession } from "@/components/pages/checkout/types"
 
 type Props = {
-	checkoutStep: number
-	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+	checkoutSession: CheckoutSession
 }
-const ShippingMethodForm = ({ checkoutStep, setCheckoutStep }: Props) => {
-	const showForm = checkoutStep === 2
+const ShippingMethodForm = ({ checkoutSession }: Props) => {
+	const showForm = checkoutSession.currentStep === 2
 	const onFormSubmit = () => {
-		setCheckoutStep(3)
+		// setCheckoutStep(3)
 	}
-	const formComplete = checkoutStep !== 2
 
 	const shippingMethods: ShippingMethod[] = [
 		{ title: "USPS Priority Mail", estimatedDelivery: "2-3 days", price: 8.99 },
@@ -34,7 +33,7 @@ const ShippingMethodForm = ({ checkoutStep, setCheckoutStep }: Props) => {
 			</div>
 			{/* Shipping method form */}
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
-				<form action="#" method="POST">
+				<form>
 					<RadioGroup value={selectedShippingMethodIdx} onChange={setSelectedShippingMethodIdx}>
 						<div className="bg-white rounded-md -space-y-px shadow-sm">
 							{shippingMethods.map((shippingMethod, shippingMethodIdx) => (

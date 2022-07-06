@@ -44,9 +44,10 @@ const stripeElementOptions = {
 type Props = {
 	checkoutStep: number
 	setCheckoutStep: React.Dispatch<React.SetStateAction<number>>
+	setPreviousCheckoutStep: React.Dispatch<React.SetStateAction<number>>
 	clientSecret: string
 }
-const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props) => {
+const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, setPreviousCheckoutStep, clientSecret }: Props) => {
 	const stripePromise = loadStripePublic()
 	stripeElementOptions.clientSecret = clientSecret
 
@@ -69,7 +70,7 @@ const PaymentInfoForm = ({ checkoutStep, setCheckoutStep, clientSecret }: Props)
 			</div>
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
 				<Elements stripe={stripePromise} options={stripeElementOptions}>
-					<form action="#" method="POST">
+					<form>
 						<div className="grid grid-cols-6 gap-4">
 							<div className="col-span-6">
 								<PaymentElement/>

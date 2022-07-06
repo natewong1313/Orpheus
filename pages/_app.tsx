@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				color="#0ea5e9"
 				startPosition={0.4}
 				stopDelayMs={100}
-				height={2}
+				height={3}
 				showOnShallow={true}
 				nonce={undefined}
 				options={{ showSpinner: false }}

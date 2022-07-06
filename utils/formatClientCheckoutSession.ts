@@ -5,16 +5,16 @@ export default function (paymentIntent: Stripe.Response<Stripe.PaymentIntent>): 
 	return {
 		clientSecret: paymentIntent.client_secret,
 		paymentIntentId: paymentIntent.id,
-		name: paymentIntent.shipping?.name,
-		emailAddress: paymentIntent.receipt_email,
+		name: paymentIntent.shipping?.name || null,
+		emailAddress: paymentIntent.receipt_email || null,
 		shippingAddress: {
-			address1: paymentIntent.shipping?.address?.line1,
-			address2: paymentIntent.shipping?.address?.line2,
-			city: paymentIntent.shipping?.address?.city,
-			state: paymentIntent.shipping?.address?.state,
-			zipCode: paymentIntent.shipping?.address?.postal_code,
-			countryName: paymentIntent.shipping?.address?.country
+			address1: paymentIntent.shipping?.address?.line1 || null,
+			address2: paymentIntent.shipping?.address?.line2 || null,
+			city: paymentIntent.shipping?.address?.city || null,
+			state: paymentIntent.shipping?.address?.state || null,
+			zipCode: paymentIntent.shipping?.address?.postal_code || null,
+			countryName: paymentIntent.shipping?.address?.country || null
 		},
-		shippingMethod: paymentIntent.metadata.shippingMethod
+		shippingMethod: paymentIntent.metadata.shippingMethod || null
 	}
 }

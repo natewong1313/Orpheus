@@ -3,12 +3,15 @@ import { RadioGroup } from "@headlessui/react"
 import type { ShippingMethod } from "@/components/pages/checkout/types"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
 import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import Loader from "@/components/global/Loader"
 
 type Props = {
 	checkoutSession: CheckoutSession
 }
 const ShippingMethodForm = ({ checkoutSession }: Props) => {
 	const showForm = checkoutSession.currentStep === 2
+	
+	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
 	const shippingMethods: ShippingMethod[] = [
@@ -19,6 +22,7 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 	const [selectedShippingMethod, setSelectedShippingMethod] = useState(shippingMethods[0].title)
 
 	const onFormSubmit = async () => {
+		setShowLoader(true)
 		const response = await fetch("/api/checkout/update", {
 			method: "POST",
 			headers: {
@@ -27,6 +31,7 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 			},
 			body: JSON.stringify({ shippingMethod: selectedShippingMethod })
 		})
+		setShowLoader(false)
 		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
 			checkoutSession.setCurrentStep(3)
@@ -94,7 +99,6 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 												<RadioGroup.Label
 													as="span"
 													className={`block text-sm font-semibold ${checked ? "text-sky-900" : "text-slate-900"}`}
-
 												>
 													{shippingMethod.price}
 												</RadioGroup.Label>
@@ -109,10 +113,9 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 						<button
 							type="button"
 							className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full hover:bg-slate-800 disabled:bg-slate-400 disabled:border-slate-400 disabled:hover:bg-slate-400 disabled:cursor-not-allowed"
-							// disabled={true}
 							onClick={onFormSubmit}
 						>
-							Continue
+							{showLoader ? <Loader/> : "Continue"}
 						</button>
 					</div>
 				</form>

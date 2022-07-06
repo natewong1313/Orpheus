@@ -5,8 +5,9 @@ import { getCountries, getCountry } from "@/utils/countries"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect, { FormSelectOption } from "@/components/pages/checkout/FormSelect"
+import Loader from "@/components/global/Loader"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
-import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 
 const countries = getCountries()
 
@@ -16,10 +17,12 @@ type Props = {
 const ShippingAddressForm = ({ checkoutSession }: Props) => {
 	const showForm = checkoutSession.currentStep === 1
 
+	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 	const [validateOnBlur, setValidateOnBlur] = useState(false)
 
 	const onSubmit = async (values) => {
+		setShowLoader(true)
 		const response = await fetch("/api/checkout/update", {
 			method: "POST",
 			headers: {
@@ -32,6 +35,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 				shippingAddress: values
 			})
 		})
+		setShowLoader(false)
 		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
 			checkoutSession.setCurrentStep(2)
@@ -80,6 +84,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		const states = getCountry(formik.values.countryName).states.map(state => ({ name: state, value: state }))
 		setStateOptions(states)
 		if (states.length > 0) {
+			formik.setFieldValue("state", states[0].value)
 		}
 	}, [formik.values.countryName])
 
@@ -222,7 +227,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 						<button
 							className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full hover:bg-slate-800 disabled:bg-slate-400 disabled:border-slate-400 disabled:hover:bg-slate-400 disabled:cursor-not-allowed"
 						>
-							Continue
+							{showLoader ? <Loader/> : "Continue"}
 						</button>
 					</div>
 				</form>

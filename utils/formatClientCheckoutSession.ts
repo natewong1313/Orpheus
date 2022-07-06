@@ -14,6 +14,7 @@ export default function (paymentIntent: Stripe.Response<Stripe.PaymentIntent>): 
 			state: paymentIntent.shipping?.address?.state,
 			zipCode: paymentIntent.shipping?.address?.postal_code,
 			countryName: paymentIntent.shipping?.address?.country
-		}
+		},
+		shippingMethod: paymentIntent.metadata.shippingMethod
 	}
 }

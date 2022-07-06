@@ -27,9 +27,9 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({
-				emailAddress: formik.values.emailAddress,
-				name: `${formik.values.firstName} ${formik.values.lastName}`,
-				shippingAddress: formik.values
+				emailAddress: values.emailAddress,
+				name: `${values.firstName} ${values.lastName}`,
+				shippingAddress: values
 			})
 		})
 		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {

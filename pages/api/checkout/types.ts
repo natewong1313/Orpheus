@@ -7,9 +7,10 @@ export type CheckoutSessionResponse = {
 export type ClientCheckoutSession = {
 	paymentIntentId: string
 	clientSecret: string
-	name: string
+	name: string | null
 	emailAddress: string | null
 	shippingAddress: ShippingAddress | null
+	shippingMethod: string | null
 }
 
 export type ClientCheckoutSessionCookie = {

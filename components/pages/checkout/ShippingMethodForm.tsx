@@ -2,39 +2,58 @@ import React, { useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import type { ShippingMethod } from "@/components/pages/checkout/types"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
+import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 
 type Props = {
 	checkoutSession: CheckoutSession
 }
 const ShippingMethodForm = ({ checkoutSession }: Props) => {
 	const showForm = checkoutSession.currentStep === 2
-	const onFormSubmit = () => {
-		// setCheckoutStep(3)
-	}
+	const [formSubmitted, setFormSubmitted] = useState(false)
 
 	const shippingMethods: ShippingMethod[] = [
 		{ title: "USPS Priority Mail", estimatedDelivery: "2-3 days", price: 8.99 },
 		{ title: "USPS Parcel Select", estimatedDelivery: "7 days", price: 7.99 },
 		{ title: "USPS Priority Mail Express", estimatedDelivery: "1-2 days", price: 14.99 }
 	]
-	const [selectedShippingMethodIdx, setSelectedShippingMethodIdx] = useState(shippingMethods[0].title)
+	const [selectedShippingMethod, setSelectedShippingMethod] = useState(shippingMethods[0].title)
 
+	const onFormSubmit = async () => {
+		const response = await fetch("/api/checkout/update", {
+			method: "POST",
+			headers: {
+				"accept": "application/json",
+				"content-type": "application/json"
+			},
+			body: JSON.stringify({ shippingMethod: selectedShippingMethod })
+		})
+		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
+			setFormSubmitted(true)
+			checkoutSession.setCurrentStep(3)
+		}
+	}
+
+	const onEdit = () => {
+		checkoutSession.setPreviousStep(checkoutSession.currentStep)
+		checkoutSession.setCurrentStep(2)
+		setFormSubmitted(false)
+	}
 	return (
 		<div className="flex flex-col border-b border-b-slate-200 pb-6">
 			<div className="flex justify-between">
 				<h1 className={`text-lg ${showForm ? "font-semibold" : "font-medium text-slate-800"}`}>Shipping Method</h1>
-				{formComplete &&
-					<button className="text-sm font-medium text-sky-600">Edit</button>
+				{formSubmitted &&
+					<button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
 				}
 			</div>
 			{/* Shipping method preview*/}
-			<div className={`${formComplete ? "block pt-2" : "hidden"}`}>
-				<p className="text-sm text-slate-600">USPS Priority Mail</p>
+			<div className={`${formSubmitted ? "block pt-2" : "hidden"}`}>
+				<p className="text-sm text-slate-600">{selectedShippingMethod}</p>
 			</div>
 			{/* Shipping method form */}
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
 				<form>
-					<RadioGroup value={selectedShippingMethodIdx} onChange={setSelectedShippingMethodIdx}>
+					<RadioGroup value={selectedShippingMethod} onChange={setSelectedShippingMethod}>
 						<div className="bg-white rounded-md -space-y-px shadow-sm">
 							{shippingMethods.map((shippingMethod, shippingMethodIdx) => (
 								<RadioGroup.Option

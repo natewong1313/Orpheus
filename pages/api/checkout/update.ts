@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import checkHasCurrentCheckoutSession from "@/utils/checkHasCurrentCheckoutSession"
 import loadStripePrivate from "@/utils/stripe/loadStripePrivate"
-import type { CheckoutSessionResponse, ClientCheckoutSession } from "@/pages/api/checkout/types"
 import formatClientCheckoutSession from "@/utils/formatClientCheckoutSession"
-import { ShippingAddress } from "@/pages/api/checkout/types"
+import type { CheckoutSessionResponse, ClientCheckoutSession } from "@/pages/api/checkout/types"
+import type { ShippingAddress } from "@/pages/api/checkout/types"
 
 const stripe = loadStripePrivate()
 
@@ -11,6 +11,7 @@ type ClientCheckoutSessionUpdate = {
 	emailAddress?: string
 	name?: string
 	shippingAddress?: ShippingAddress
+	shippingMethod?: string
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<CheckoutSessionResponse>) {
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 		return res.status(400).json({ success: false, message: "No active checkout session" })
 	}
 
-	const { emailAddress, name, shippingAddress }: ClientCheckoutSessionUpdate = req.body
+	const { emailAddress, name, shippingAddress, shippingMethod }: ClientCheckoutSessionUpdate = req.body
 
 	try {
 		const paymentIntent = await stripe.paymentIntents.update(
@@ -32,13 +33,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 				shipping: {
 					name: name,
 					address: {
-						country: shippingAddress.countryName,
-						line1: shippingAddress.address1,
-						line2: shippingAddress.address2,
-						city: shippingAddress.city,
-						postal_code: shippingAddress.zipCode,
-						state: shippingAddress.state
+						country: shippingAddress?.countryName,
+						line1: shippingAddress?.address1,
+						line2: shippingAddress?.address2,
+						city: shippingAddress?.city,
+						postal_code: shippingAddress?.zipCode,
+						state: shippingAddress?.state
 					}
+				},
+				metadata: {
+					shippingMethod
 				}
 			}
 		)

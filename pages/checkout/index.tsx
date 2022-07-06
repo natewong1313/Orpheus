@@ -29,7 +29,7 @@ const CheckoutPage = ({ clientCheckoutSession }: Props) => {
 					<div className="grid grid-cols-1 md:grid-cols-5 md:gap-4 w-full text-left pt-6 px-6">
 						<div className="md:col-span-3 flex flex-col space-y-6 py-6 md:py-0 md:pr-8 2xl:w-[40rem]">
 							<ShippingAddressForm checkoutSession={checkoutSession}/>
-							{/*<ShippingMethodForm checkoutSession={checkoutSession}/>*/}
+							<ShippingMethodForm checkoutSession={checkoutSession}/>
 							{/*<PaymentInfoForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}*/}
 							{/*								 setPreviousCheckoutStep={setPreviousCheckoutStep}*/}
 							{/*								 clientSecret={clientCheckoutSession.clientSecret}/>*/}

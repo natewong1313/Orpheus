@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
+import Loader from "@/components/global/Loader"
 
 type Props = {
 	onCheckoutBtnClick: () => Promise<void>
 }
-
 const OrderSummary = ({ onCheckoutBtnClick }: Props) => {
+	const [showLoader, setShowLoader] = useState(false)
 	return (
 		<div
 			className="flex-none md:w-96 lg:w-[30rem] py-6 md:py-10 px-4 sm:px-6 md:px-8 bg-gray-50 flex-row space-y-4 order-1 md:order-2">
@@ -55,9 +56,13 @@ const OrderSummary = ({ onCheckoutBtnClick }: Props) => {
 			<div>
 				<button
 					className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
-					onClick={onCheckoutBtnClick}
+					onClick={async () => {
+						setShowLoader(true)
+						await onCheckoutBtnClick()
+					}}
 				>
-					Continue to Checkout
+					{showLoader ? <Loader/> : "Continue to Checkout"}
+
 				</button>
 			</div>
 		</div>

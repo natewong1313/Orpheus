@@ -13,13 +13,17 @@ type Props = {
 	clientCheckoutSession: ClientCheckoutSession
 }
 const CheckoutPage = ({ clientCheckoutSession }: Props) => {
-	const [currentStep, setCurrentStep] = useState(1)
-	const [previousStep, setPreviousStep] = useState(1)
+	const [shippingAddressCompleted, setShippingAddressCompleted] = useState(false)
+	const [shippingMethodCompleted, setShippingMethodCompleted] = useState(false)
+	const [paymentInfoCompleted, setPaymentInfoCompleted] = useState(false)
 	const checkoutSession: CheckoutSession = {
-		currentStep,
-		previousStep,
-		setCurrentStep,
-		setPreviousStep
+		shippingAddressCompleted,
+		shippingMethodCompleted,
+		paymentInfoCompleted,
+		setShippingAddressCompleted,
+		setShippingMethodCompleted,
+		setPaymentInfoCompleted,
+		client: clientCheckoutSession
 	}
 	return (
 		<div className="flex flex-col min-h-screen bg-gray-50">
@@ -30,11 +34,9 @@ const CheckoutPage = ({ clientCheckoutSession }: Props) => {
 						<div className="md:col-span-3 flex flex-col space-y-6 py-6 md:py-0 md:pr-8 2xl:w-[40rem]">
 							<ShippingAddressForm checkoutSession={checkoutSession}/>
 							<ShippingMethodForm checkoutSession={checkoutSession}/>
-							{/*<PaymentInfoForm checkoutStep={checkoutStep} setCheckoutStep={setCheckoutStep}*/}
-							{/*								 setPreviousCheckoutStep={setPreviousCheckoutStep}*/}
-							{/*								 clientSecret={clientCheckoutSession.clientSecret}/>*/}
+							<PaymentInfoForm checkoutSession={checkoutSession} clientSecret={clientCheckoutSession.clientSecret}/>
 						</div>
-						<OrderSummary/>
+						<OrderSummary checkoutSession={checkoutSession}/>
 					</div>
 				</div>
 			</div>

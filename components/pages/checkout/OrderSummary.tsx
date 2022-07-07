@@ -1,6 +1,11 @@
 import React from "react"
+import type { CheckoutSession } from "@/components/pages/checkout/types"
 
-const OrderSummary = () => {
+type Props = {
+	checkoutSession: CheckoutSession
+}
+const OrderSummary = ({ checkoutSession }: Props) => {
+	const allowOrderToBePlaced = checkoutSession.shippingAddressCompleted && checkoutSession.shippingMethodCompleted && checkoutSession.paymentInfoCompleted
 	return (
 		<div
 			className="col-span-2 border border-slate-100 rounded-lg p-4 flex-row space-y-3 h-min mb-6 md:mb-0 bg-white shadow-sm">
@@ -28,7 +33,7 @@ const OrderSummary = () => {
 			<div>
 				<button
 					className="mt-1 bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600 disabled:opacity-50 disabled:hover:bg-sky-500 disabled:cursor-not-allowed"
-					disabled={true}
+					disabled={!allowOrderToBePlaced}
 				>
 					Place Order
 				</button>

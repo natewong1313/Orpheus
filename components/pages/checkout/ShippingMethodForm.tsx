@@ -1,16 +1,16 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
 import type { ShippingMethod } from "@/components/pages/checkout/types"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
 import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 import Loader from "@/components/global/Loader"
+import { GoCheck } from "react-icons/go"
 
 type Props = {
 	checkoutSession: CheckoutSession
 }
 const ShippingMethodForm = ({ checkoutSession }: Props) => {
-	const showForm = checkoutSession.currentStep === 2
-	
+	const showForm = !checkoutSession.shippingMethodCompleted && checkoutSession.shippingAddressCompleted
 	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -34,19 +34,30 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 		setShowLoader(false)
 		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
-			checkoutSession.setCurrentStep(3)
+			checkoutSession.setShippingMethodCompleted(true)
 		}
 	}
 
 	const onEdit = () => {
-		checkoutSession.setPreviousStep(checkoutSession.currentStep)
-		checkoutSession.setCurrentStep(2)
+		checkoutSession.setShippingMethodCompleted(false)
 		setFormSubmitted(false)
 	}
+
+	// Set field values if user has already submitted shipping method previously
+	useEffect(() => {
+		if (shippingMethods.find(method => method.title === checkoutSession.client.shippingMethod)) {
+			setSelectedShippingMethod(checkoutSession.client.shippingMethod)
+			setFormSubmitted(true)
+			checkoutSession.setShippingMethodCompleted(true)
+		}
+	}, [])
 	return (
 		<div className="flex flex-col border-b border-b-slate-200 pb-6">
 			<div className="flex justify-between">
-				<h1 className={`text-lg ${showForm ? "font-semibold" : "font-medium text-slate-800"}`}>Shipping Method</h1>
+				<h1 className="text-lg font-semibold flex items-center">
+					Shipping Method
+					{formSubmitted && <GoCheck className="ml-2 text-emerald-500" size={24}/>}
+				</h1>
 				{formSubmitted &&
 					<button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
 				}

@@ -1,4 +1,5 @@
 import React from "react"
+import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
 
 export type ShippingMethod = {
 	title: string
@@ -6,8 +7,11 @@ export type ShippingMethod = {
 	price: number
 }
 export type CheckoutSession = {
-	currentStep: number
-	previousStep: number
-	setCurrentStep: React.Dispatch<React.SetStateAction<number>>
-	setPreviousStep: React.Dispatch<React.SetStateAction<number>>
+	shippingAddressCompleted: boolean
+	shippingMethodCompleted: boolean
+	paymentInfoCompleted: boolean
+	setShippingAddressCompleted: React.Dispatch<React.SetStateAction<boolean>>
+	setShippingMethodCompleted: React.Dispatch<React.SetStateAction<boolean>>
+	setPaymentInfoCompleted: React.Dispatch<React.SetStateAction<boolean>>
+	client: ClientCheckoutSession
 }

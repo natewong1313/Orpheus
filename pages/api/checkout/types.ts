@@ -4,6 +4,10 @@ export type CheckoutSessionResponse = {
 	message?: string
 }
 
+export type ClientCheckoutSessionCookie = {
+	clientSecret: string
+}
+
 export type ClientCheckoutSession = {
 	paymentIntentId: string
 	clientSecret: string
@@ -13,11 +17,16 @@ export type ClientCheckoutSession = {
 	shippingMethod: string | null
 }
 
-export type ClientCheckoutSessionCookie = {
-	clientSecret: string
+export type ShippingAddress = {
+	address1: string
+	address2: string
+	city: string
+	state: string
+	zipCode: string
+	countryName: string
 }
 
-export type ShippingAddress = {
+export type BillingAddress = {
 	address1: string
 	address2: string
 	city: string

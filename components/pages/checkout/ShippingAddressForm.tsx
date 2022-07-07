@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import * as yup from "yup"
 import { useFormik } from "formik"
+import { GoCheck } from "react-icons/go"
 import { getCountries, getCountry } from "@/utils/countries"
 import FormInput from "@/components/pages/checkout/FormInput"
 import FormLabel from "@/components/pages/checkout/FormLabel"
@@ -15,8 +16,7 @@ type Props = {
 	checkoutSession: CheckoutSession
 }
 const ShippingAddressForm = ({ checkoutSession }: Props) => {
-	const showForm = checkoutSession.currentStep === 1
-
+	const showForm = !checkoutSession.shippingAddressCompleted
 	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 	const [validateOnBlur, setValidateOnBlur] = useState(false)
@@ -38,17 +38,17 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		setShowLoader(false)
 		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
-			checkoutSession.setCurrentStep(2)
+			checkoutSession.setShippingAddressCompleted(true)
 		}
 	}
 
-	const formValidation = yup.object({
+	const validation = yup.object({
 		emailAddress: yup.string().email().required(),
 		firstName: yup.string().required(),
 		lastName: yup.string().required(),
 		countryName: yup.string().required(),
 		address1: yup.string().required(),
-		address2: yup.string().optional(),
+		address2: yup.string().optional().nullable(),
 		city: yup.string().required(),
 		state: yup.string().required(),
 		zipCode: yup.number().required()
@@ -65,16 +65,39 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 			state: "",
 			zipCode: ""
 		},
-		validationSchema: formValidation,
+		validationSchema: validation,
 		validateOnBlur,
 		validateOnChange: validateOnBlur,
 		enableReinitialize: true,
 		onSubmit
 	})
 
+	// Set field values if user has already submitted shipping address previously
+	useEffect(() => {
+		(async () => {
+			try {
+				await validation.validate({
+					...checkoutSession.client.shippingAddress,
+					emailAddress: checkoutSession.client.emailAddress,
+					firstName: checkoutSession.client.name.split(" ")[0],
+					lastName: checkoutSession.client.name.split(" ")[1]
+				})
+				await formik.setFieldValue("emailAddress", checkoutSession.client.emailAddress)
+				await formik.setFieldValue("firstName", checkoutSession.client.name.split(" ")[0])
+				await formik.setFieldValue("lastName", checkoutSession.client.name.split(" ")[1])
+				for (const fieldName in checkoutSession.client.shippingAddress) {
+					await formik.setFieldValue(fieldName, checkoutSession.client.shippingAddress[fieldName])
+				}
+				setFormSubmitted(true)
+				checkoutSession.setShippingAddressCompleted(true)
+			} catch (ValidationError) {
+			}
+		})()
+	}, [])
+
+
 	const onEdit = () => {
-		checkoutSession.setPreviousStep(checkoutSession.currentStep)
-		checkoutSession.setCurrentStep(1)
+		checkoutSession.setShippingAddressCompleted(false)
 		setFormSubmitted(false)
 	}
 
@@ -87,13 +110,14 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 			formik.setFieldValue("state", states[0].value)
 		}
 	}, [formik.values.countryName])
-
 	return (
 		<div className="flex flex-col border-b border-b-slate-200  pb-6">
 			<div className="flex justify-between">
-				<h1 className={`text-lg ${showForm ? "font-semibold" : "font-medium text-slate-800"}`}>Shipping Address</h1>
-				{formSubmitted &&
-					<button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
+				<h1 className="text-lg font-semibold flex items-center">
+					Shipping Address
+					{formSubmitted && <GoCheck className="ml-2 text-emerald-500" size={24}/>}
+				</h1>
+				{formSubmitted && <button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
 				}
 			</div>
 			{/* Shipping details preview*/}
@@ -124,8 +148,8 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 								hasError={"emailAddress" in formik.errors}
 							/>
 						</div>
-						<div className="col-span-3">
-							<FormLabel>First Name</FormLabel>
+						<div className="col-span-6">
+							<FormLabel>Name</FormLabel>
 							<FormInput
 								type="text"
 								id="firstName"

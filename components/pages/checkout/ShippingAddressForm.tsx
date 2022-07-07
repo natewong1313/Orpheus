@@ -148,8 +148,8 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 								hasError={"emailAddress" in formik.errors}
 							/>
 						</div>
-						<div className="col-span-6">
-							<FormLabel>Name</FormLabel>
+						<div className="col-span-3">
+							<FormLabel>First Name</FormLabel>
 							<FormInput
 								type="text"
 								id="firstName"

@@ -1,11 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
+import { useStripe, useElements } from "@stripe/react-stripe-js"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
+import Loader from "@/components/global/Loader"
 
 type Props = {
 	checkoutSession: CheckoutSession
 }
 const OrderSummary = ({ checkoutSession }: Props) => {
 	const allowOrderToBePlaced = checkoutSession.shippingAddressCompleted && checkoutSession.shippingMethodCompleted && checkoutSession.paymentInfoCompleted
+	const [showLoader, setShowLoader] = useState(false)
+	const [errorMsg, setErrorMsg] = useState("")
+
+	const stripe = useStripe()
+	const elements = useElements()
+
+	const onSubmitOrder = async () => {
+		setShowLoader(true)
+		setErrorMsg("")
+		const { error } = await stripe.confirmPayment({
+			elements,
+			confirmParams: {
+				return_url: "http://localhost:3000"
+			}
+		})
+		setShowLoader(false)
+		setErrorMsg("Error: " + error.message)
+	}
 	return (
 		<div
 			className="col-span-2 border border-slate-100 rounded-lg p-4 flex-row space-y-3 h-min mb-6 md:mb-0 bg-white shadow-sm">
@@ -22,7 +42,7 @@ const OrderSummary = ({ checkoutSession }: Props) => {
 				<h2 className="text-sm text-gray-500">Shipping</h2>
 				<h1 className="text-sm text-gray-500">$0.00</h1>
 			</div>
-			<div className="flex justify-between border-b border-b-slate-200 pb-4">
+			<div className="flex justify-between border-b border-b-slate-200 pb-3">
 				<h2 className="text-sm text-gray-500">Tax</h2>
 				<h1 className="text-sm text-gray-500">$0.00</h1>
 			</div>
@@ -30,16 +50,17 @@ const OrderSummary = ({ checkoutSession }: Props) => {
 				<h2 className="font-semibold">Order Total</h2>
 				<h1 className="font-bold text-lg">$80.00</h1>
 			</div>
-			<div>
+			<div className="border-b border-b-slate-100 pb-4">
 				<button
 					className="mt-1 bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600 disabled:opacity-50 disabled:hover:bg-sky-500 disabled:cursor-not-allowed"
-					disabled={!allowOrderToBePlaced}
+					disabled={!allowOrderToBePlaced || showLoader}
+					onClick={onSubmitOrder}
 				>
-					Place Order
+					{showLoader ? <Loader/> : "Place Order"}
 				</button>
-
+				<p className="mt-3 -mb-1 text-sm text-red-600 font-medium">{errorMsg}</p>
 			</div>
-			<p className="text-xs text-slate-500 pt-1">
+			<p className="text-xs text-slate-500">
 				By placing your order, you agree to our <span className="underline">Terms of Use</span> and <span
 				className="underline">Privacy Policy</span>
 			</p>

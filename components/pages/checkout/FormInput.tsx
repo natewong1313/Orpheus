@@ -3,11 +3,10 @@ import React from "react"
 type Props = {
 	type: string
 	id: string
-	// name: string
 	autoComplete?: string
 	placeholder?: string
 	onChange?: (e: React.ChangeEvent<any>) => void
-	value?: string
+	value: string
 	hasError?: boolean
 }
 const FormInput = ({ type, id, autoComplete, placeholder, onChange, value, hasError }: Props) => {

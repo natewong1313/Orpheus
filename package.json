@@ -24,6 +24,7 @@
     "react-spinners": "^0.13.3",
     "state-country": "^1.0.8",
     "stripe": "^9.11.0",
+    "tailwind-scrollbar": "github:adoxography/tailwind-scrollbar#pull/36/head",
     "yup": "^0.32.11"
   },
   "devDependencies": {

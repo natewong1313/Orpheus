@@ -111,7 +111,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		}
 	}, [formik.values.countryName])
 	return (
-		<div className="flex flex-col border-b border-b-slate-200  pb-6">
+		<div className="flex flex-col border-b border-b-slate-200 pb-6">
 			<div className="flex justify-between">
 				<h1 className="text-lg font-semibold flex items-center">
 					Shipping Address
@@ -126,7 +126,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 				<p className="text-sm text-slate-600">{formik.values.emailAddress}</p>
 				<p className="text-sm text-slate-600">{formik.values.address1} {formik.values.address2}</p>
 				<p className="text-sm text-slate-600">
-					{formik.values.city}, {formik.values.state} {formik.values.zipCode} {formik.values.countryName}
+					{formik.values.city}, {formik.values.state} {formik.values.zipCode}
 				</p>
 			</div>
 			{/* Shipping address form*/}

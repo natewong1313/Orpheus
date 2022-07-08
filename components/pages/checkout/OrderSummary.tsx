@@ -20,7 +20,7 @@ const OrderSummary = ({ checkoutSession }: Props) => {
 		const { error } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: "http://localhost:3000"
+				return_url: "http://localhost:3000/checkout/confirmed"
 			}
 		})
 		setShowLoader(false)

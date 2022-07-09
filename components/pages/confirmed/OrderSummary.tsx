@@ -2,7 +2,7 @@ import React from "react"
 
 const OrderSummary = () => {
 	return (
-		<div className="py-4 px-4 border-b border-b-slate-200">
+		<div className="py-4 px-4 sm:px-0 border-b border-b-slate-200">
 			<div className="grid grid-cols-2">
 				<div className="col">
 					<h1 className="font-semibold">Shipping Address</h1>

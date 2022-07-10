@@ -1,15 +1,15 @@
 import React, { useState } from "react"
-import { Elements, useElements } from "@stripe/react-stripe-js"
+import { Elements } from "@stripe/react-stripe-js"
 import Navbar from "@/components/pages/checkout/Navbar"
 import OrderSummary from "@/components/pages/checkout/OrderSummary"
 import ShippingAddressForm from "@/components/pages/checkout/ShippingAddressForm"
 import ShippingMethodForm from "@/components/pages/checkout/ShippingMethodForm"
 import PaymentInfoForm from "@/components/pages/checkout/PaymentInfoForm"
 import checkHasCurrentCheckoutSession from "@/utils/checkHasCurrentCheckoutSession"
-import loadStripePrivate from "@/utils/stripe/loadStripePrivate"
+import loadStripePublic from "@/lib/stripe/loadStripePublic"
+import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
 import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
 import type { CheckoutSession } from "@/components/pages/checkout/types"
-import loadStripePublic from "@/utils/stripe/loadStripePublic"
 
 const stripeElementOptions = {
 	clientSecret: "",

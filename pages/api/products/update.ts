@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { Prisma } from "@prisma/client"
-import prisma from "@/utils/prisma"
+import prisma from "@/lib/prisma"
 import type { Response } from "@/pages/api/products/types"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {

@@ -1,5 +1,5 @@
 // https://github.com/jbreneman/country-state-list
-import type { CountryData, Country } from "@/utils/countries/types"
+import type { CountryData, Country } from "./types"
 
 /**
  * Gets a list of states by country code

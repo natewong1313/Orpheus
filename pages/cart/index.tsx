@@ -1,6 +1,7 @@
 import React from "react"
 import { useRouter } from "next/router"
 import Navbar from "@/components/global/Navbar"
+import Footer from "@/components/global/Footer"
 import EmptyCart from "@/components/pages/cart/EmptyCart"
 import OrderSummary from "@/components/pages/cart/OrderSummary"
 import CartItemsList from "@/components/pages/cart/CartItemsList"
@@ -32,18 +33,21 @@ const CartPage = ({ cart }: Props) => {
 		}
 	}
 	return (
-		<div className="flex flex-col min-h-screen">
-			<Navbar cart={cart}/>
-			<>{
-				cart?.cartItems?.length > 0 ?
-					<div className="text-left grid grid-cols-1 md:flex md:flex-grow pb-6 sm:pb-0">
-						<CartItemsList cartItems={cart.cartItems}/>
-						<OrderSummary cartItems={cart.cartItems} onCheckoutBtnClick={onCheckoutBtnClick}/>
-					</div>
-					: <div className="text-center flex flex-col items-center py-8">
-						<EmptyCart/>
-					</div>
-			}</>
+		<div>
+			<div className="flex flex-col min-h-screen">
+				<Navbar cart={cart}/>
+				<>{
+					cart?.cartItems?.length > 0 ?
+						<div className="text-left grid grid-cols-1 md:flex md:flex-grow pb-6 sm:pb-0">
+							<CartItemsList cartItems={cart.cartItems}/>
+							<OrderSummary cartItems={cart.cartItems} onCheckoutBtnClick={onCheckoutBtnClick}/>
+						</div>
+						: <div className="text-center flex flex-col items-center py-10">
+							<EmptyCart/>
+						</div>
+				}</>
+			</div>
+			<Footer/>
 		</div>
 	)
 }

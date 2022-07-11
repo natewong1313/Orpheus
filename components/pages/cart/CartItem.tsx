@@ -76,7 +76,8 @@ const CartItem = ({ cartItem }: Props) => {
 				</div>
 				<div className="pt-3 flex flex-row space-x-2 items-center">
 					{/*/!* Size select *!/*/}
-					{/*<div>*/}
+					{/*<h1 className="text-sm text-slate-500">Size:</h1>*/}
+					{/*<div className="pr-2">*/}
 					{/*	<select*/}
 					{/*		className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200"*/}
 					{/*	>*/}
@@ -84,6 +85,7 @@ const CartItem = ({ cartItem }: Props) => {
 					{/*	</select>*/}
 					{/*</div>*/}
 					{/* Quantity select */}
+					<h1 className="text-sm text-slate-500">Qty:</h1>
 					<div>
 						<select
 							className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200"
@@ -95,7 +97,7 @@ const CartItem = ({ cartItem }: Props) => {
 					</div>
 				</div>
 			</div>
-			<div className="mb-auto">
+			<div className="mb-auto mt-2.5">
 				<button
 					className="text-slate-400 p-1 rounded-full hover:bg-slate-100"
 					onClick={onDeleteItemBtnClick}

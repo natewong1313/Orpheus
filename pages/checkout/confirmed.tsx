@@ -1,5 +1,6 @@
 import React from "react"
 import Navbar from "@/components/global/Navbar"
+import Footer from "@/components/global/Footer"
 import { BsCheckCircle } from "react-icons/bs"
 import ItemsList from "@/components/pages/confirmed/ItemsList"
 import OrderSummary from "@/components/pages/confirmed/OrderSummary"
@@ -21,6 +22,7 @@ const ConfirmedPage = () => {
 				<ItemsList/>
 				<OrderSummary/>
 			</div>
+			<Footer/>
 		</div>
 	)
 }

@@ -1,4 +1,5 @@
 import Navbar from "@/components/global/Navbar"
+import Footer from "@/components/global/Footer"
 import Hero from "@/components/pages/home/Hero"
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
 				{/*pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est*/}
 				{/*laborum*/}
 			</div>
+			<Footer/>
 		</div>
 	)
 }

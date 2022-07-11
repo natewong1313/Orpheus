@@ -1,11 +1,20 @@
 import React, { useState } from "react"
 import Loader from "@/components/global/Loader"
+import type { CartItem } from "@/pages/api/cart/types"
+import { calcCartItemCount, calcCartItemsTotalPrice } from "@/utils/cartItem"
 
 type Props = {
+	cartItems: CartItem[]
 	onCheckoutBtnClick: () => Promise<void>
 }
-const OrderSummary = ({ onCheckoutBtnClick }: Props) => {
+const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 	const [showLoader, setShowLoader] = useState(false)
+
+	const cartItemCount = calcCartItemCount(cartItems)
+	const cartItemsTotalPrice = calcCartItemsTotalPrice(cartItems).toFixed(2)
+
+	let subtotal = cartItemsTotalPrice
+
 	return (
 		<div
 			className="flex-none md:w-96 lg:w-[30rem] py-6 md:py-10 px-4 sm:px-6 md:px-8 bg-gray-50 flex-row space-y-4 order-1 md:order-2">
@@ -13,9 +22,9 @@ const OrderSummary = ({ onCheckoutBtnClick }: Props) => {
 			<div className="flex flex-row justify-between pb-4 border-b border-b-slate-200">
 					<span
 						className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm bg-slate-200 text-slate-600">
-						2 items
+						{cartItemCount} item{cartItemCount !== 1 && "s"}
 					</span>
-				<span className="font-medium text-sm">$100.00</span>
+				<span className="font-medium text-sm">${cartItemsTotalPrice}</span>
 			</div>
 			<div>
 				<h2 className="font-medium text-sm text-slate-500">Promo Code</h2>
@@ -51,7 +60,7 @@ const OrderSummary = ({ onCheckoutBtnClick }: Props) => {
 			</div>
 			<div className="flex justify-between border-b border-b-slate-200 pb-5">
 				<h2 className="text-sm font-semibold text-slate-600">Subtotal</h2>
-				<h1 className="text-sm font-semibold text-slate-600">$80.00</h1>
+				<h1 className="text-sm font-semibold text-slate-600">${subtotal}</h1>
 			</div>
 			<div>
 				<button

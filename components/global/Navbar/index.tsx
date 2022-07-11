@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import useSWR from "swr"
 import Link from "next/link"
 import Image from "next/image"
 import { RiShoppingBagLine, RiMenuLine } from "react-icons/ri"
@@ -7,6 +8,8 @@ import MobileNavPopover from "@/components/global/Navbar/MobileNavPopover"
 import NavbarItem from "@/components/global/Navbar/NavbarItem"
 import NavbarItemWithSubcategory from "@/components/global/Navbar/NavbarItemWithSubcategory"
 import type { NavItem } from "@/components/global/Navbar/types"
+import { Cart } from "@/pages/api/cart/types"
+import { calcCartItemCount } from "@/utils/cartItem"
 
 const NavItems: NavItem[] = [
 	{
@@ -47,9 +50,23 @@ const NavItems: NavItem[] = [
 	}
 ]
 
-const Navbar = () => {
-	const cartItems = [{}, {}]
+type Props = {
+	cart?: Cart
+}
+const Navbar = ({ cart }: Props) => {
 	const [showMobileNav, setShowMobileNav] = useState(false)
+
+	let cartItems
+	if (!cart) {
+		const { data, error } = useSWR("/api/cart", (...args) => fetch(...args).then(res => res.json()))
+		if (!error && data) {
+			cartItems = data.cart.cartItems
+		}
+	} else {
+		cartItems = cart.cartItems
+	}
+
+	const cartItemAmount = calcCartItemCount(cartItems)
 	return (
 		<header className="py-4 border-b border-b-gray-200 bg-white">
 			<div className="px-4 sm:px-6 md:px-8">
@@ -82,9 +99,9 @@ const Navbar = () => {
 							<a className="inline-block relative py-1.5 text-gray-600">
 								<RiShoppingBagLine size={32}/>
 								{/* Cart items count */}
-								{cartItems.length > 0 && <span
+								{cartItemAmount > 0 && <span
 									className="absolute top-0 -right-2 block py-0.5 px-1.5 text-xs rounded-full ring-2 ring-white bg-sky-500 text-white">
-									{cartItems.length}
+									{cartItemAmount}
 								</span>}
 							</a>
 						</Link>

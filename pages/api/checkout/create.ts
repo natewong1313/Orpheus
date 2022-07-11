@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { setCookie } from "cookies-next"
-import checkHasCurrentCheckoutSession from "@/utils/checkHasCurrentCheckoutSession"
 import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
+import { checkHasCurrentCheckoutSession, formatClientCheckoutSession } from "@/pages/api/checkout/utils"
 import type { CheckoutSessionResponse, ClientCheckoutSession } from "@/pages/api/checkout/types"
-import formatClientCheckoutSession from "@/utils/formatClientCheckoutSession"
 
 const stripe = loadStripePrivate()
 

@@ -24,7 +24,7 @@ const Hero = () => {
 							fully functional</h2>
 						<button className="bg-white rounded-md text-black font-semibold py-3 px-6 hover:bg-gray-200">
 							View Shop
-							{/*<HiArrowSmRight size={20} className="ml-0.5"/>*/}
+							{/* <HiArrowSmRight size={20} className="ml-0.5"/> */}
 						</button>
 					</div>
 				</div>

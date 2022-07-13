@@ -17,7 +17,7 @@ export function getCountry(countryCode: string): CountryData {
  * @param {string[]} filter - An array of country codes (2 letter preferred, falls back to 3 letter)
  */
 export function getCountries(filter?: string[]): Country[] {
-	const list = filter ? filter : require("./data/countries.json").map(item => item.code).filter(item => item.length).sort()
+	const list = filter || require("./data/countries.json").map(item => item.code).filter(item => item.length).sort()
 	return list.map(item => {
 		return {
 			...getCountry(item),

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -10,7 +11,9 @@
 
 # next.js
 /.next/
+.next
 /out/
+.swc
 
 # production
 /build
@@ -34,3 +37,6 @@ yarn-error.log*
 
 # webstorm
 .idea
+
+#vscode
+*.code-workspace

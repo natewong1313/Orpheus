@@ -16,7 +16,7 @@ const stripeElementOptions = {
 	fonts: [{ cssSrc: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" }],
 	appearance: {
 		variables: {
-			fontFamily: `Inter`,
+			fontFamily: "Inter",
 			fontWeightNormal: "500",
 			colorTextPlaceholder: "rgb(148 163 184)",
 			focusBoxShadow: "0 0 0 0.8px var(--p-colorPrimaryAlpha20)",

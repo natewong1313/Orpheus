@@ -62,7 +62,7 @@ const OrderSummary = ({ checkoutSession }: Props) => {
 			</div>
 			<p className="text-xs text-slate-500">
 				By placing your order, you agree to our <span className="underline">Terms of Use</span> and <span
-				className="underline">Privacy Policy</span>
+					className="underline">Privacy Policy</span>
 			</p>
 		</div>
 	)

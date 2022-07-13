@@ -87,9 +87,9 @@ const Navbar = ({ cart }: Props) => {
 						{/* Nav Items */}
 						<div className="hidden md:flex items-center space-x-7 text-sm">
 							{NavItems.map(navItem =>
-								navItem.subcategories.length > 0 ?
-									<NavbarItemWithSubcategory navItem={navItem} key={navItem.href}/> :
-									<NavbarItem navItem={navItem} key={navItem.href}/>
+								navItem.subcategories.length > 0
+									? <NavbarItemWithSubcategory navItem={navItem} key={navItem.href}/>
+									: <NavbarItem navItem={navItem} key={navItem.href}/>
 							)}
 						</div>
 					</div>

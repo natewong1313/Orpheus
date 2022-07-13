@@ -13,17 +13,17 @@ const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 	const cartItemCount = calcCartItemCount(cartItems)
 	const cartItemsTotalPrice = calcCartItemsTotalPrice(cartItems).toFixed(2)
 
-	let subtotal = cartItemsTotalPrice
+	const subtotal = cartItemsTotalPrice
 
 	return (
 		<div
 			className="flex-none md:w-96 lg:w-[30rem] py-6 md:py-10 px-4 sm:px-6 md:px-8 bg-gray-50 flex-row space-y-4 order-1 md:order-2">
 			<h1 className="font-semibold text-xl">Order Summary</h1>
 			<div className="flex flex-row justify-between pb-4 border-b border-b-slate-200">
-					<span
-						className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm bg-slate-200 text-slate-600">
-						{cartItemCount} item{cartItemCount !== 1 && "s"}
-					</span>
+				<span
+					className="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm bg-slate-200 text-slate-600">
+					{cartItemCount} item{cartItemCount !== 1 && "s"}
+				</span>
 				<span className="font-medium text-sm">${cartItemsTotalPrice}</span>
 			</div>
 			<div>

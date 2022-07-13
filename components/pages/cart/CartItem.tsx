@@ -2,8 +2,7 @@ import React from "react"
 import Image from "next/image"
 import { CgClose } from "react-icons/cg"
 import { BsQuestionLg } from "react-icons/bs"
-import type { CartItem as CartItemType } from "@/pages/api/cart/types"
-import type { Response } from "@/pages/api/cart/types"
+import type { CartItem as CartItemType, Response } from "@/pages/api/cart/types"
 
 type Props = {
 	cartItem: CartItemType
@@ -15,7 +14,7 @@ const CartItem = ({ cartItem }: Props) => {
 		const response = await fetch("/api/cart/update", {
 			method: "POST",
 			headers: {
-				"accept": "application/json",
+				accept: "application/json",
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({
@@ -32,7 +31,7 @@ const CartItem = ({ cartItem }: Props) => {
 		const response = await fetch("/api/cart/delete", {
 			method: "DELETE",
 			headers: {
-				"accept": "application/json",
+				accept: "application/json",
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({ productId: product.id })
@@ -47,16 +46,16 @@ const CartItem = ({ cartItem }: Props) => {
 		<div className="flex flex-row items-center space-x-4 w-full">
 			{/* Product image */}
 			<div className="relative h-32 w-40 rounded-md overflow-hidden">
-				{product.images.length > 0 ?
-					<Image
+				{product.images.length > 0
+					? <Image
 						src={product.images[0]}
 						objectFit="fill"
 						layout="fill"
 						loading="eager"
 						priority={true}
 						draggable={false}
-					/> :
-					<div className="bg-slate-200 h-full flex items-center justify-center">
+					/>
+					: <div className="bg-slate-200 h-full flex items-center justify-center">
 						<BsQuestionLg size={48} className="text-gray-400"/>
 					</div>
 				}
@@ -70,20 +69,21 @@ const CartItem = ({ cartItem }: Props) => {
 					<p className="text-sm text-slate-500">
 						${product.price}
 						<span className="text-slate-300"> | </span>
-						{product.inventoryCount > 0 ? <span className="text-emerald-500">In Stock</span> :
-							<span className="text-red-500">Out of Stock</span>}
+						{product.inventoryCount > 0
+							? <span className="text-emerald-500">In Stock</span>
+							: <span className="text-red-500">Out of Stock</span>}
 					</p>
 				</div>
 				<div className="pt-3 flex flex-row space-x-2 items-center">
-					{/*/!* Size select *!/*/}
-					{/*<h1 className="text-sm text-slate-500">Size:</h1>*/}
-					{/*<div className="pr-2">*/}
-					{/*	<select*/}
-					{/*		className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200"*/}
-					{/*	>*/}
-					{/*		{["Small", "Medium", "Large", "XLarge"].map(sz => <option key={sz}>{sz}</option>)}*/}
-					{/*	</select>*/}
-					{/*</div>*/}
+					{/* /!* Size select *!/ */}
+					{/* <h1 className="text-sm text-slate-500">Size:</h1> */}
+					{/* <div className="pr-2"> */}
+					{/*	<select */}
+					{/*		className="block pl-3 pr-10 py-2 text-sm font-medium text-slate-500 rounded-lg border-slate-200 shadow-sm shadow-slate-50 focus:outline-none focus:ring-blue-200 focus:border-blue-200" */}
+					{/*	> */}
+					{/*		{["Small", "Medium", "Large", "XLarge"].map(sz => <option key={sz}>{sz}</option>)} */}
+					{/*	</select> */}
+					{/* </div> */}
 					{/* Quantity select */}
 					<h1 className="text-sm text-slate-500">Qty:</h1>
 					<div>

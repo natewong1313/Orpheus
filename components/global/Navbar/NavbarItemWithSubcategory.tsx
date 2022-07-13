@@ -10,7 +10,7 @@ const NavbarItemWithSubcategory = ({ navItem }: Props) => {
 	return (
 		<>
 			<div className="group">
-				{/* Nav item title*/}
+				{/* Nav item title */}
 				<div className="cursor-pointer flex items-center space-x-1 text-gray-500 group-hover:text-black">
 					<span className="font-medium text-sm">
 						{navItem.name}

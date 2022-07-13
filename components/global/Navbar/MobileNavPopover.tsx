@@ -66,9 +66,9 @@ const MobileNavPopover = ({ showMobileNav, setShowMobileNav, navItems }: Props) 
 								{/* Nav items */}
 								<div className="px-6 py-4 flex flex-col text-lg">
 									{navItems.map(navItem =>
-										navItem.subcategories.length > 0 ?
-											<MobileNavItemWithSubcategory navItem={navItem} key={navItem.href}/> :
-											<MobileNavItem navItem={navItem} key={navItem.href}/>
+										navItem.subcategories.length > 0
+											? <MobileNavItemWithSubcategory navItem={navItem} key={navItem.href}/>
+											: <MobileNavItem navItem={navItem} key={navItem.href}/>
 									)}
 								</div>
 							</div>

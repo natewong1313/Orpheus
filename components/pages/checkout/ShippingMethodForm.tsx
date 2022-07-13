@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
-import type { ShippingMethod } from "@/components/pages/checkout/types"
-import type { CheckoutSession } from "@/components/pages/checkout/types"
-import { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import type { ShippingMethod, CheckoutSession } from "@/components/pages/checkout/types"
+import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 import Loader from "@/components/global/Loader"
 import { GoCheck } from "react-icons/go"
 
@@ -26,13 +25,13 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 		const response = await fetch("/api/checkout/update", {
 			method: "POST",
 			headers: {
-				"accept": "application/json",
+				accept: "application/json",
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({ shippingMethod: selectedShippingMethod })
 		})
 		setShowLoader(false)
-		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
+		if (response.status === 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
 			checkoutSession.setShippingMethodCompleted(true)
 		}
@@ -62,7 +61,7 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 					<button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
 				}
 			</div>
-			{/* Shipping method preview*/}
+			{/* Shipping method preview */}
 			<div className={`${formSubmitted ? "block pt-2" : "hidden"}`}>
 				<p className="text-sm text-slate-600">{selectedShippingMethod}</p>
 			</div>

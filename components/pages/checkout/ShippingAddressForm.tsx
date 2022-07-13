@@ -26,7 +26,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		const response = await fetch("/api/checkout/update", {
 			method: "POST",
 			headers: {
-				"accept": "application/json",
+				accept: "application/json",
 				"content-type": "application/json"
 			},
 			body: JSON.stringify({
@@ -36,7 +36,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 			})
 		})
 		setShowLoader(false)
-		if (response.status == 200 && (await response.json() as CheckoutSessionResponse).success) {
+		if (response.status === 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
 			checkoutSession.setShippingAddressCompleted(true)
 		}
@@ -95,7 +95,6 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		})()
 	}, [])
 
-
 	const onEdit = () => {
 		checkoutSession.setShippingAddressCompleted(false)
 		setFormSubmitted(false)
@@ -120,7 +119,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 				{formSubmitted && <button className="text-sm font-medium text-sky-600" onClick={onEdit}>Edit</button>
 				}
 			</div>
-			{/* Shipping details preview*/}
+			{/* Shipping details preview */}
 			<div className={`${formSubmitted ? "block pt-2" : "hidden"}`}>
 				<p className="text-sm text-slate-600">{formik.values.firstName} {formik.values.lastName}</p>
 				<p className="text-sm text-slate-600">{formik.values.emailAddress}</p>
@@ -129,7 +128,7 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 					{formik.values.city}, {formik.values.state} {formik.values.zipCode}
 				</p>
 			</div>
-			{/* Shipping address form*/}
+			{/* Shipping address form */}
 			<div className={`${showForm ? "block pt-6" : "hidden"}`}>
 				<form onSubmit={(e) => {
 					setValidateOnBlur(true)

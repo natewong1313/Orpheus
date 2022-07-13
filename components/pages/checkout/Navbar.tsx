@@ -20,7 +20,7 @@ const Navbar = () => {
 			</div>
 			<div className="text-right items-center flex-1">
 				{/* Stripe badge element */}
-				<a href="https://stripe.com/" target="_blank" className="flex items-center h-8 w-24 sm:w-32 ml-auto">
+				<a href="https://stripe.com/" target="_blank" className="flex items-center h-8 w-24 sm:w-32 ml-auto" rel="noreferrer">
 					<Image
 						src={StripeBadge}
 						loading="eager"

@@ -16,7 +16,7 @@ const ConfirmedPage = () => {
 						<BsCheckCircle className="absolute -mt-10 z-10 text-green-500" size={42}/>
 					</div>
 					<h1 className="font-semibold text-2xl">Order Confirmed</h1>
-					<h2 className="font-medium text-md text-slate-500">We'll email you with updates once your order is
+					<h2 className="font-medium text-md text-slate-500">We&apos;ll email you with updates once your order is
 						processed</h2>
 				</div>
 				<ItemsList/>

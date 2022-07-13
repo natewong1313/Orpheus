@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
 import { checkHasCurrentCheckoutSession, formatClientCheckoutSession } from "@/pages/api/checkout/utils"
-import type { CheckoutSessionResponse, ClientCheckoutSession } from "@/pages/api/checkout/types"
-import type { ShippingAddress } from "@/pages/api/checkout/types"
+import type { CheckoutSessionResponse, ClientCheckoutSession, ShippingAddress } from "@/pages/api/checkout/types"
 
 const stripe = loadStripePrivate()
 
@@ -30,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 			{
 				receipt_email: emailAddress,
 				shipping: {
-					name: name,
+					name,
 					address: {
 						country: shippingAddress?.countryName,
 						line1: shippingAddress?.address1,

@@ -20,8 +20,9 @@ const MobileNavItemWithSubcategory = ({ navItem }: Props) => {
 					<span className="font-medium">
 						{navItem.name}
 					</span>
-					{showSubCategories ?
-						<HiMinus size={20}/> : <HiPlus size={20}/>
+					{showSubCategories
+						? <HiMinus size={20}/>
+						: <HiPlus size={20}/>
 					}
 				</button>
 				{/* Subcategory list */}

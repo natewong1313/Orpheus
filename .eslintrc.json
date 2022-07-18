@@ -21,7 +21,8 @@
     ],
     "rules": {
         "quotes": ["error", "double"],
-        "indent": ["error", "tab"],
+        "indent": "off",
+        "@typescript-eslint/indent": ["error", "tabs"],
         "no-tabs": 0,
         "space-before-function-paren": ["error", {
             "anonymous": "always",

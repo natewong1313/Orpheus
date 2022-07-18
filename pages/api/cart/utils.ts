@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getCookie, setCookie } from "cookies-next"
 import prisma from "@/lib/prisma"
+import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
 import type { Response } from "@/pages/api/cart/types"
 
 export async function getCartId(req: NextApiRequest, res: NextApiResponse<Response>) {
@@ -34,8 +35,14 @@ export async function getCart(cartId: string) {
 	})
 }
 
+const stripe = loadStripePrivate()
 async function createNewCart() {
-	const cart = await prisma.cart.create({ data: {} })
+	const paymentIntent = await stripe.paymentIntents.create({
+		amount: 100,
+		currency: "usd",
+		automatic_payment_methods: { enabled: true }
+	})
+	const cart = await prisma.cart.create({ data: {paymentIntentId: paymentIntent.id} })
 	return cart.id
 }
 

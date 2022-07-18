@@ -9,11 +9,16 @@ type Props = {
 }
 const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 	const [showLoader, setShowLoader] = useState(false)
+	const [couponInput, setCouponInput] = useState("")
 
 	const cartItemCount = calcCartItemCount(cartItems)
 	const cartItemsTotalPrice = calcCartItemsTotalPrice(cartItems).toFixed(2)
 
 	const subtotal = cartItemsTotalPrice
+
+	const onCouponBtnClick = () => {
+		
+	}
 
 	return (
 		<div
@@ -32,17 +37,18 @@ const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 				<form className="mt-1 sm:flex sm:items-center">
 					<div className="w-full md:max-w-xs">
 						<input
-							type="email"
-							name="email"
-							id="email"
+							type="text"
 							spellCheck={false}
 							className="text-sm rounded-md w-full focus:ring-blue-200 focus:border-blue-200 border-slate-200 shadow-sm placeholder:text-slate-400 focus:placeholder:text-slate-300"
 							placeholder="Enter code"
+							value={couponInput}
+							onChange={(e) => setCouponInput(e.target.value)}
 						/>
 					</div>
 					<button
 						type="button"
 						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-auto sm:ml-3 mt-2 sm:mt-0 hover:bg-gray-800"
+						onClick={onCouponBtnClick}
 					>
 						Apply
 					</button>

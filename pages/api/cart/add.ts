@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "@/lib/prisma"
 import { getCart, getCartId } from "@/pages/api/cart/utils"
 import type { Response } from "@/pages/api/cart/types"
@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 			if (e.code === "P2025") {
 				return res.status(400).json({ success: false, message: "Product not found" })
 			} else {
-				throw (e)
+				throw(e)
 			}
 		}
 	}

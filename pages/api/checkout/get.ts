@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import type { CheckoutSessionResponse, ClientCheckoutSession } from "@/pages/api/checkout/types"
 import { checkHasCurrentCheckoutSession } from "@/pages/api/checkout/utils"
 import loadStripePrivate from "@/lib/stripe/loadStripePrivate"

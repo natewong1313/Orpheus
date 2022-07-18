@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { getCookie, setCookie } from "cookies-next"
 import prisma from "@/lib/prisma"
 import loadStripePrivate from "@/lib/stripe/loadStripePrivate"

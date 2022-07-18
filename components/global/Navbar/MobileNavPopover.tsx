@@ -6,7 +6,7 @@ import OrpheusLogo from "@/public/photos/orpheus.png"
 import { RiCloseLine } from "react-icons/ri"
 import MobileNavItem from "@/components/global/Navbar/MobileNavItem"
 import MobileNavItemWithSubcategory from "@/components/global/Navbar/MobileNavItemWithSubcategory"
-import { NavItem } from "@/components/global/Navbar/types"
+import type { NavItem } from "@/components/global/Navbar/types"
 
 type Props = {
 	showMobileNav: boolean

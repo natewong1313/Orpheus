@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { getCart, getCartId } from "@/pages/api/cart/utils"
 import type { Response } from "@/pages/api/cart/types"
 

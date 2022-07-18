@@ -1,4 +1,4 @@
-import { Cart as CartType, CartItem as CartItemType, Product } from "@prisma/client"
+import type { Cart as CartType, CartItem as CartItemType, Product } from "@prisma/client"
 
 export type Response = {
 	success: boolean

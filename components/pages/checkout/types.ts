@@ -1,4 +1,4 @@
-import React from "react"
+import type React from "react"
 import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
 
 export type ShippingMethod = {

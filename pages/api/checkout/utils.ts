@@ -1,7 +1,6 @@
-import Stripe from "stripe"
-import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
-import { NextApiRequest, NextApiResponse } from "next"
-import { CheckoutSessionResponse, ClientCheckoutSessionCookie } from "@/pages/api/checkout/types"
+import type Stripe from "stripe"
+import type { ClientCheckoutSession, CheckoutSessionResponse, ClientCheckoutSessionCookie } from "@/pages/api/checkout/types"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { getCookie } from "cookies-next"
 
 export async function checkHasCurrentCheckoutSession(stripe: Stripe, req: NextApiRequest, res: NextApiResponse<CheckoutSessionResponse>): Promise<null | ClientCheckoutSession> {

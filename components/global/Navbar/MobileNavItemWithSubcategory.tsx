@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { HiMinus, HiPlus } from "react-icons/hi"
 import { Transition } from "@headlessui/react"
 import Link from "next/link"
-import { NavItem } from "@/components/global/Navbar/types"
+import type { NavItem } from "@/components/global/Navbar/types"
 
 type Props = {
 	navItem: NavItem

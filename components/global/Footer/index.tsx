@@ -11,7 +11,7 @@ const Footer = () => {
 				<div className="flex flex-row space-x-2">
 					{/* Visa */}
 					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
-							 aria-labelledby="pi-visa"><title id="pi-visa">Visa</title>
+						aria-labelledby="pi-visa"><title id="pi-visa">Visa</title>
 						<path opacity=".07"
 							d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
 						<path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
@@ -21,7 +21,7 @@ const Footer = () => {
 					</svg>
 					{/* Master card */}
 					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
-							 aria-labelledby="pi-master"><title id="pi-master">Mastercard</title>
+						aria-labelledby="pi-master"><title id="pi-master">Mastercard</title>
 						<path opacity=".07"
 							d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
 						<path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
@@ -32,7 +32,7 @@ const Footer = () => {
 					</svg>
 					{/* Amex */}
 					<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 38 24" width="38" height="24"
-							 aria-labelledby="pi-american_express"><title id="pi-american_express">American Express</title>
+						aria-labelledby="pi-american_express"><title id="pi-american_express">American Express</title>
 						<g fill="none">
 							<path fill="#000"
 								d="M35,0 L3,0 C1.3,0 0,1.3 0,3 L0,21 C0,22.7 1.4,24 3,24 L35,24 C36.7,24 38,22.7 38,21 L38,3 C38,1.3 36.6,0 35,0 Z"
@@ -45,7 +45,7 @@ const Footer = () => {
 					</svg>
 					{/* Diners club */}
 					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" width="38" height="24"
-							 aria-labelledby="pi-diners_club"><title id="pi-diners_club">Diners Club</title>
+						aria-labelledby="pi-diners_club"><title id="pi-diners_club">Diners Club</title>
 						<path opacity=".07"
 							d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
 						<path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path>
@@ -55,7 +55,7 @@ const Footer = () => {
 					</svg>
 					{/* Discover */}
 					<svg viewBox="0 0 38 24" width="38" height="24" role="img" aria-labelledby="pi-discover" fill="none"
-							 xmlns="http://www.w3.org/2000/svg"><title id="pi-discover">Discover</title>
+						xmlns="http://www.w3.org/2000/svg"><title id="pi-discover">Discover</title>
 						<path fill="#000" opacity=".07"
 							d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path>
 						<path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32z" fill="#fff"></path>

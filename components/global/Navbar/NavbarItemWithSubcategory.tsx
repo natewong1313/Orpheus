@@ -1,7 +1,7 @@
 import React from "react"
 import { HiChevronDown } from "react-icons/hi"
 import Link from "next/link"
-import { NavItem } from "@/components/global/Navbar/types"
+import type { NavItem } from "@/components/global/Navbar/types"
 
 type Props = {
 	navItem: NavItem

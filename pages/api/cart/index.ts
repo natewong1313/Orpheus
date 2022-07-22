@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getCart, getCartId } from "@/pages/api/cart/utils"
+import { formatCartResponse, getCart, getCartId } from "@/pages/api/cart/utils"
 import type { Response } from "@/pages/api/cart/types"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
@@ -9,5 +9,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 	const cartId = await getCartId(req, res)
 	const cart = await getCart(cartId)
-	return res.status(200).json({ success: true, cart })
+	return res.status(200).json({ success: true, cart: formatCartResponse(cart) })
 }

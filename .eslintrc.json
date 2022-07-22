@@ -35,7 +35,9 @@
             "functions": false
         }],
         "keyword-spacing": ["error", { "overrides": {"throw": {"after": false }} }],
-        "@typescript-eslint/consistent-type-imports": "error"
+        "@typescript-eslint/consistent-type-imports": "error",
+        "semi": ["error", "tabs",  "never"],
+        "comma-dangle": ["error", "never"]
     },
     "globals": {
         "JSX": true

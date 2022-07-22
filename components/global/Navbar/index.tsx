@@ -52,13 +52,17 @@ const NavItems: NavItem[] = [
 
 type Props = {
 	cart?: Cart
+	title?: string
 }
-const Navbar = ({ cart }: Props) => {
+const Navbar = ({ cart, title="Orpheus" }: Props) => {
 	const [showMobileNav, setShowMobileNav] = useState(false)
 
 	let cartItems
 	if (!cart) {
-		const { data, error } = useSWR("/api/cart", (...args) => fetch(...args).then(res => res.json()))
+		const { data, error } = useSWR("/api/cart", 
+			(...args) => fetch(...args).then(res => res.json()), 
+			{revalidateOnFocus: false, revalidateIfStale: false}
+		)
 		if (!error && data) {
 			cartItems = data.cart.cartItems
 		}
@@ -81,7 +85,7 @@ const Navbar = ({ cart }: Props) => {
 						<Link href="/">
 							<a className="flex flex-row space-x-3 items-center">
 								<Image src={OrpheusLogo} width={34} height={34} loading="eager" priority={true}/>
-								<h1 className="font-gilroy font-bold text-xl">Orpheus</h1>
+								<h1 className="font-gilroy font-bold text-xl">{title}</h1>
 							</a>
 						</Link>
 						{/* Nav Items */}

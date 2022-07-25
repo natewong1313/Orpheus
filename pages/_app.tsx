@@ -1,12 +1,11 @@
 import React from "react"
 import type { AppProps } from "next/app"
 import "@/styles/globals.css"
-import Layout from "@/components/global/Layout"
 import NextNProgress from "nextjs-progressbar"
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<Layout>
+		<>
 			<NextNProgress
 				color="#0ea5e9"
 				startPosition={0.4}
@@ -17,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				options={{ showSpinner: false }}
 			/>
 			<Component {...pageProps} />
-		</Layout>
+		</>
 	)
 }
 

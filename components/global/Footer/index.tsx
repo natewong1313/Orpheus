@@ -2,7 +2,7 @@ import React from "react"
 
 const Footer = () => {
 	return (
-		<div className="bg-white border-t border-t-slate-200 py-6 px-6">
+		<div className="bg-white border-t border-t-slate-200 py-6 px-6 absolute bottom-0 w-full">
 			<div className="flex justify-between items-center">
 				<div className="flex flex-col space-y-0.5 text-slate-500">
 					<h1 className="font-medium text-sm">© 2022 Orpheus, All rights reserved</h1>

@@ -22,7 +22,7 @@
     "rules": {
         "quotes": ["error", "double"],
         "indent": "off",
-        "@typescript-eslint/indent": ["error", "tabs"],
+        // "@typescript-eslint/indent": ["error", 4],
         "no-tabs": 0,
         "space-before-function-paren": ["error", {
             "anonymous": "always",
@@ -36,7 +36,8 @@
         }],
         "keyword-spacing": ["error", { "overrides": {"throw": {"after": false }} }],
         "@typescript-eslint/consistent-type-imports": "error",
-        "semi": ["error", "tabs",  "never"],
+        "semi": "off",
+        "@typescript-eslint/semi": ["error", "never"],
         "comma-dangle": ["error", "never"]
     },
     "globals": {

@@ -6,15 +6,15 @@ import type { Response } from "@/pages/api/cart/types"
 
 const RequestBody = z.object({
 	productId: z.string({
-					required_error: "productId is required", 
-					invalid_type_error: "productId is not of type string"
-				})
-				.min(1, { message: "productId cannot be empty" }),
+			required_error: "productId is required",
+			invalid_type_error: "productId is not of type string"
+		})
+		.min(1, { message: "productId cannot be empty" }),
 	quantity: z.number({
-					required_error: "quantity is required", 
-					invalid_type_error: "quantity is not of type integer"
-				})
-				.positive({ message: "quantity must be > 0"})
+			required_error: "quantity is required",
+			invalid_type_error: "quantity is not of type integer"
+		})
+		.positive({ message: "quantity must be > 0" })
 })
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
 	if (req.method !== "POST") {
@@ -22,10 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	}
 
 	// Validate request body
-	let productId, quantity = null
-	try{
-		({productId, quantity} = RequestBody.parse(req.body))
-	}catch(e){
+	let productId, quantity
+	try {
+		({ productId, quantity } = RequestBody.parse(req.body))
+	} catch (e) {
 		return res.status(400).json({ success: false, message: e.issues[0].message })
 	}
 
@@ -47,8 +47,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	})
 	const updatedCart = await getCart(cartId)
 	await updateCheckoutTotal(updatedCart)
-	return res.status(200).json({ 
-		success: true, cart: 
-		formatCartResponse(updatedCart) 
+	return res.status(200).json({
+		success: true,
+		cart: formatCartResponse(updatedCart)
 	})
 }

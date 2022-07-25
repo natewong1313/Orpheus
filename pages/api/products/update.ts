@@ -6,34 +6,34 @@ import type { Response } from "@/pages/api/products/types"
 
 const RequestBody = z.object({
 	id: z.string({
-				required_error: "id is required", 
-				invalid_type_error: "id is not of type string"
-			})
-			.min(1, { message: "id cannot be empty" })
-	.optional(),
+			required_error: "id is required", 
+			invalid_type_error: "id is not of type string"
+		})
+		.min(1, { message: "id cannot be empty" })
+		.optional(),
 	title: z.string({
-				required_error: "title is required", 
-				invalid_type_error: "title is not of type string"
-			})
-			.min(1, { message: "title cannot be empty" })
-			.optional(),
+			required_error: "title is required", 
+			invalid_type_error: "title is not of type string"
+		})
+		.min(1, { message: "title cannot be empty" })
+		.optional(),
 	price: z.number({
-				required_error: "price is required", 
-				invalid_type_error: "price is not of type integer"
-			})
-			.min(1, { message: "price must be >= 1"})
-			.optional(),
+			required_error: "price is required", 
+			invalid_type_error: "price is not of type integer"
+		})
+		.min(1, { message: "price must be >= 1"})
+		.optional(),
 	images: z.array(z.string({
-				required_error: "images are required", 
-				invalid_type_error: "images are not of type string array"
-			}))
-			.optional(),
+			required_error: "images are required", 
+			invalid_type_error: "images are not of type string array"
+		}))
+		.optional(),
 	inventoryCount: z.number({
-				required_error: "inventoryCount is required", 
-				invalid_type_error: "inventoryCount is not of type integer"
-			})
-			.min(0, { message: "inventoryCount must be >= 0"})
-			.optional()
+			required_error: "inventoryCount is required", 
+			invalid_type_error: "inventoryCount is not of type integer"
+		})
+		.min(0, { message: "inventoryCount must be >= 0"})
+		.optional()
 })
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
 	if (!["POST", "PUT"].includes(req.method)) {

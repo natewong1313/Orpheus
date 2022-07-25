@@ -5,24 +5,24 @@ import type { Response } from "@/pages/api/products/types"
 
 const RequestBody = z.object({
 	title: z.string({
-				required_error: "title is required", 
-				invalid_type_error: "title is not of type string"
-			})
-			.min(1, { message: "title cannot be empty" }),
+			required_error: "title is required", 
+			invalid_type_error: "title is not of type string"
+		})
+		.min(1, { message: "title cannot be empty" }),
 	price: z.number({
-				required_error: "price is required", 
-				invalid_type_error: "price is not of type integer"
-			})
-			.min(1, { message: "price must be >= 1"}),
+			required_error: "price is required", 
+			invalid_type_error: "price is not of type integer"
+		})
+		.min(1, { message: "price must be >= 1"}),
 	images: z.array(z.string({
-				required_error: "images are required", 
-				invalid_type_error: "images are not of type string array"
-			})),
+			required_error: "images are required", 
+			invalid_type_error: "images are not of type string array"
+		})),
 	inventoryCount: z.number({
-				required_error: "inventoryCount is required", 
-				invalid_type_error: "inventoryCount is not of type integer"
-			})
-			.min(0, { message: "inventoryCount must be >= 0"}),
+			required_error: "inventoryCount is required", 
+			invalid_type_error: "inventoryCount is not of type integer"
+		})
+		.min(0, { message: "inventoryCount must be >= 0"}),
 })
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
 	if (req.method !== "POST") {

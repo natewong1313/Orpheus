@@ -5,10 +5,10 @@ import type { Response } from "@/pages/api/products/types"
 
 const RequestBody = z.object({
 	id: z.string({
-				required_error: "id is required", 
-				invalid_type_error: "id is not of type string"
-			})
-			.min(1, { message: "id cannot be empty" })
+			required_error: "id is required", 
+			invalid_type_error: "id is not of type string"
+		})
+		.min(1, { message: "id cannot be empty" })
 })
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
 	if (req.method !== "POST") {

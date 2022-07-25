@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { RadioGroup } from "@headlessui/react"
-import type { ShippingMethod, CheckoutSession } from "@/components/pages/checkout/types"
-import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import type { ShippingMethod, CheckoutState } from "@/components/pages/checkout/types"
+import type { Checkout, Response } from "@/pages/api/cart/checkout/types"
 import Loader from "@/components/global/Loader"
 import { GoCheck } from "react-icons/go"
 
 type Props = {
-	checkoutSession: CheckoutSession
+	checkout: Checkout
+	checkoutState: CheckoutState
 }
-const ShippingMethodForm = ({ checkoutSession }: Props) => {
-	const showForm = !checkoutSession.shippingMethodCompleted && checkoutSession.shippingAddressCompleted
+const ShippingMethodForm = ({ checkout, checkoutState }: Props) => {
+	const showForm = !checkoutState.shippingMethodCompleted && checkoutState.shippingAddressCompleted
 	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -22,7 +23,7 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 
 	const onFormSubmit = async () => {
 		setShowLoader(true)
-		const response = await fetch("/api/checkout/update", {
+		const response = await fetch("/api/cart/checkout/update", {
 			method: "POST",
 			headers: {
 				accept: "application/json",
@@ -31,23 +32,23 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 			body: JSON.stringify({ shippingMethod: selectedShippingMethod })
 		})
 		setShowLoader(false)
-		if (response.status === 200 && (await response.json() as CheckoutSessionResponse).success) {
+		if (response.status === 200 && (await response.json() as Response).success) {
 			setFormSubmitted(true)
-			checkoutSession.setShippingMethodCompleted(true)
+			checkoutState.setShippingMethodCompleted(true)
 		}
 	}
 
 	const onEdit = () => {
-		checkoutSession.setShippingMethodCompleted(false)
+		checkoutState.setShippingMethodCompleted(false)
 		setFormSubmitted(false)
 	}
 
 	// Set field values if user has already submitted shipping method previously
 	useEffect(() => {
-		if (shippingMethods.find(method => method.title === checkoutSession.client.shippingMethod)) {
-			setSelectedShippingMethod(checkoutSession.client.shippingMethod)
+		if (shippingMethods.find(method => method.title === checkout.shippingMethod)) {
+			setSelectedShippingMethod(checkout.shippingMethod)
 			setFormSubmitted(true)
-			checkoutSession.setShippingMethodCompleted(true)
+			checkoutState.setShippingMethodCompleted(true)
 		}
 	}, [])
 	return (
@@ -80,41 +81,39 @@ const ShippingMethodForm = ({ checkoutSession }: Props) => {
 										${checked ? "bg-sky-50 border-sky-200 z-10" : "border-slate-200"}
 									`}
 								>
-									{({ checked }) => (
-										<>
-											{/*	Radio circle */}
-											<span
-												className={`h-5 w-5 cursor-pointer shrink-0 rounded-full border flex items-center justify-center 
-												${checked ? "bg-sky-600 border-transparent " : "bg-white border-slate-300 "} 
-											`}
-											>
-												<span className="rounded-full bg-white w-1.5 h-1.5"/>
-											</span>
-											<div className="ml-4 flex flex-col">
-												<RadioGroup.Label
-													as="span"
-													className={`block text-sm font-medium ${checked ? "text-sky-900" : "text-slate-900"}`}
+									{({ checked }) => (<>
+										{/*	Radio circle */}
+										<span
+											className={`h-5 w-5 cursor-pointer shrink-0 rounded-full border flex items-center justify-center 
+											${checked ? "bg-sky-600 border-transparent " : "bg-white border-slate-300 "} 
+										`}
+										>
+											<span className="rounded-full bg-white w-1.5 h-1.5"/>
+										</span>
+										<div className="ml-4 flex flex-col">
+											<RadioGroup.Label
+												as="span"
+												className={`block text-sm font-medium ${checked ? "text-sky-900" : "text-slate-900"}`}
 
-												>
-													{shippingMethod.title}
-												</RadioGroup.Label>
-												<RadioGroup.Description
-													as="span"
-													className={`block text-sm ${checked ? "text-sky-700" : "text-slate-500"}`}
-												>
-													{shippingMethod.estimatedDelivery}
-												</RadioGroup.Description>
-											</div>
-											<div className="ml-auto">
-												<RadioGroup.Label
-													as="span"
-													className={`block text-sm font-semibold ${checked ? "text-sky-900" : "text-slate-900"}`}
-												>
-													{shippingMethod.price}
-												</RadioGroup.Label>
-											</div>
-										</>
-									)}
+											>
+												{shippingMethod.title}
+											</RadioGroup.Label>
+											<RadioGroup.Description
+												as="span"
+												className={`block text-sm ${checked ? "text-sky-700" : "text-slate-500"}`}
+											>
+												{shippingMethod.estimatedDelivery}
+											</RadioGroup.Description>
+										</div>
+										<div className="ml-auto">
+											<RadioGroup.Label
+												as="span"
+												className={`block text-sm font-semibold ${checked ? "text-sky-900" : "text-slate-900"}`}
+											>
+												{shippingMethod.price}
+											</RadioGroup.Label>
+										</div>
+									</>)}
 								</RadioGroup.Option>
 							))}
 						</div>

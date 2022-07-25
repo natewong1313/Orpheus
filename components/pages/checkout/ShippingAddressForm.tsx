@@ -8,38 +8,36 @@ import FormLabel from "@/components/pages/checkout/FormLabel"
 import FormSelect from "@/components/pages/checkout/FormSelect"
 import type { FormSelectOption } from "@/components/pages/checkout/FormSelect"
 import Loader from "@/components/global/Loader"
-import type { CheckoutSession } from "@/components/pages/checkout/types"
+import type { CheckoutState } from "@/components/pages/checkout/types"
 import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import type { Checkout } from "@/pages/api/cart/checkout/types"
 
 const countries = getCountries()
 
 type Props = {
-	checkoutSession: CheckoutSession
+	checkout: Checkout
+	checkoutState: CheckoutState
 }
-const ShippingAddressForm = ({ checkoutSession }: Props) => {
-	const showForm = !checkoutSession.shippingAddressCompleted
+const ShippingAddressForm = ({ checkout, checkoutState }: Props) => {
+	const showForm = !checkoutState.shippingAddressCompleted
 	const [showLoader, setShowLoader] = useState(false)
 	const [formSubmitted, setFormSubmitted] = useState(false)
 	const [validateOnBlur, setValidateOnBlur] = useState(false)
 
 	const onSubmit = async (values) => {
 		setShowLoader(true)
-		const response = await fetch("/api/checkout/update", {
+		const response = await fetch("/api/cart/checkout/update", {
 			method: "POST",
 			headers: {
 				accept: "application/json",
 				"content-type": "application/json"
 			},
-			body: JSON.stringify({
-				emailAddress: values.emailAddress,
-				name: `${values.firstName} ${values.lastName}`,
-				shippingAddress: values
-			})
+			body: JSON.stringify({ shippingAddress: values })
 		})
 		setShowLoader(false)
 		if (response.status === 200 && (await response.json() as CheckoutSessionResponse).success) {
 			setFormSubmitted(true)
-			checkoutSession.setShippingAddressCompleted(true)
+			checkoutState.setShippingAddressCompleted(true)
 		}
 	}
 
@@ -78,26 +76,20 @@ const ShippingAddressForm = ({ checkoutSession }: Props) => {
 		(async () => {
 			try {
 				await validation.validate({
-					...checkoutSession.client.shippingAddress,
-					emailAddress: checkoutSession.client.emailAddress,
-					firstName: checkoutSession.client.name.split(" ")[0],
-					lastName: checkoutSession.client.name.split(" ")[1]
+					...checkout.shippingAddress
 				})
-				await formik.setFieldValue("emailAddress", checkoutSession.client.emailAddress)
-				await formik.setFieldValue("firstName", checkoutSession.client.name.split(" ")[0])
-				await formik.setFieldValue("lastName", checkoutSession.client.name.split(" ")[1])
-				for (const fieldName in checkoutSession.client.shippingAddress) {
-					await formik.setFieldValue(fieldName, checkoutSession.client.shippingAddress[fieldName])
+				for (const fieldName in checkout.shippingAddress) {
+					await formik.setFieldValue(fieldName, checkout.shippingAddress[fieldName])
 				}
 				setFormSubmitted(true)
-				checkoutSession.setShippingAddressCompleted(true)
+				checkoutState.setShippingAddressCompleted(true)
 			} catch (ValidationError) {
 			}
 		})()
 	}, [])
 
 	const onEdit = () => {
-		checkoutSession.setShippingAddressCompleted(false)
+		checkoutState.setShippingAddressCompleted(false)
 		setFormSubmitted(false)
 	}
 

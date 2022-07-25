@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import { Elements } from "@stripe/react-stripe-js"
+import { getCart, getCartId } from "@/pages/api/cart/utils"
 import Navbar from "@/components/pages/checkout/Navbar"
 import OrderSummary from "@/components/pages/checkout/OrderSummary"
 import ShippingAddressForm from "@/components/pages/checkout/ShippingAddressForm"
 import ShippingMethodForm from "@/components/pages/checkout/ShippingMethodForm"
 import PaymentInfoForm from "@/components/pages/checkout/PaymentInfoForm"
-import { checkHasCurrentCheckoutSession } from "@/pages/api/checkout/utils"
 import loadStripePublic from "@/lib/stripe/loadStripePublic"
-import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
-import type { ClientCheckoutSession } from "@/pages/api/checkout/types"
-import type { CheckoutSession } from "@/components/pages/checkout/types"
+import { formatCheckoutResponse } from "@/pages/api/cart/checkout/utils"
+import type { Checkout } from "@/pages/api/cart/checkout/types"
+import type { CheckoutState } from "@/components/pages/checkout/types"
 
 const stripeElementOptions = {
 	clientSecret: "",
@@ -48,24 +48,23 @@ const stripeElementOptions = {
 }
 
 type Props = {
-	clientCheckoutSession: ClientCheckoutSession
+	checkout: Checkout
 }
-const CheckoutPage = ({ clientCheckoutSession }: Props) => {
+const CheckoutPage = ({ checkout }: Props) => {
 	const [shippingAddressCompleted, setShippingAddressCompleted] = useState(false)
 	const [shippingMethodCompleted, setShippingMethodCompleted] = useState(false)
 	const [paymentInfoCompleted, setPaymentInfoCompleted] = useState(false)
-	const checkoutSession: CheckoutSession = {
+	const checkoutState: CheckoutState = {
 		shippingAddressCompleted,
 		shippingMethodCompleted,
 		paymentInfoCompleted,
 		setShippingAddressCompleted,
 		setShippingMethodCompleted,
-		setPaymentInfoCompleted,
-		client: clientCheckoutSession
+		setPaymentInfoCompleted
 	}
 
 	const stripePromise = loadStripePublic()
-	stripeElementOptions.clientSecret = clientCheckoutSession.clientSecret
+	stripeElementOptions.clientSecret = checkout.clientSecret
 
 	return (
 		<div className="flex flex-col min-h-screen bg-gray-50">
@@ -75,11 +74,11 @@ const CheckoutPage = ({ clientCheckoutSession }: Props) => {
 					<div className="grid grid-cols-1 md:grid-cols-5 md:gap-4 w-full text-left pt-6 px-6">
 						<Elements stripe={stripePromise} options={stripeElementOptions}>
 							<div className="md:col-span-3 flex flex-col space-y-6 py-6 md:py-0 md:pr-8 2xl:w-[40rem]">
-								<ShippingAddressForm checkoutSession={checkoutSession}/>
-								<ShippingMethodForm checkoutSession={checkoutSession}/>
-								<PaymentInfoForm checkoutSession={checkoutSession}/>
+								<ShippingAddressForm checkout={checkout} checkoutState={checkoutState}/>
+								<ShippingMethodForm checkout={checkout} checkoutState={checkoutState}/>
+								<PaymentInfoForm checkout={checkout} checkoutState={checkoutState}/>
 							</div>
-							<OrderSummary checkoutSession={checkoutSession}/>
+							<OrderSummary checkout={checkout} checkoutState={checkoutState}/>
 						</Elements>
 					</div>
 				</div>
@@ -89,9 +88,12 @@ const CheckoutPage = ({ clientCheckoutSession }: Props) => {
 }
 
 export async function getServerSideProps({ req, res }) {
-	const clientCheckoutSession = await checkHasCurrentCheckoutSession(loadStripePrivate(), req, res)
-	if (clientCheckoutSession !== null) {
-		return { props: { clientCheckoutSession } }
+	const cartId = await getCartId(req, res)
+	const cart = await getCart(cartId)
+
+	if (cart.cartItems.length > 0) {
+		const checkout = await formatCheckoutResponse(cart)
+		return { props: { checkout } }
 	} else {
 		return {
 			redirect: {

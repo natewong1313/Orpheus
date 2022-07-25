@@ -11,31 +11,62 @@ datasource db {
 }
 
 model Product {
-  id             String     @id @default(auto()) @map("_id") @db.ObjectId
-  title          String
-  price          Float
-  images         String[]
-  inventoryCount Int
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  title               String
+  price               Float
+  images              String[]
+  inventoryCount      Int
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  cartItems       CartItem[]
+  cartItems           CartItem[]
 }
 
 model Cart {
-  id                String     @id @default(auto()) @map("_id") @db.ObjectId
-  paymentIntentId   String
-  cartItems         CartItem[]
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  id                  String          @id @default(auto()) @map("_id") @db.ObjectId
+  cartItems           CartItem[]
+  checkoutSession     CheckoutSession?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model CartItem {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId     String  @db.ObjectId
-  quantity      Int
+  id                  String  @id @default(auto()) @map("_id") @db.ObjectId
+  product             Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId           String  @db.ObjectId
+  quantity            Int
 
-  cart          Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId        String? @db.ObjectId
+  cart                Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId              String? @db.ObjectId
+}
+
+model CheckoutSession {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  paymentIntentId     String
+
+  shippingAddress     ShippingAddress?  @relation(fields: [shippingAddressId], references: [id])
+  shippingAddressId   String?  @unique
+
+  shippingMethod      String?
+
+  cart                Cart  @relation(fields: [cartId], references: [id])
+  cartId              String  @unique
+}
+
+model ShippingAddress {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+
+  firstName           String
+  lastName            String
+  emailAddress        String
+
+  address1            String
+  address2            String?
+  city                String
+  state               String
+  zipCode             String
+  countryName         String
+
+  checkoutSession     CheckoutSession?
 }

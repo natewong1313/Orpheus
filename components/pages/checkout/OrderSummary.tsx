@@ -1,13 +1,15 @@
 import React, { useState } from "react"
 import { useStripe, useElements } from "@stripe/react-stripe-js"
-import type { CheckoutSession } from "@/components/pages/checkout/types"
 import Loader from "@/components/global/Loader"
+import type { Checkout } from "@/pages/api/cart/checkout/types"
+import type { CheckoutState } from "@/components/pages/checkout/types"
 
 type Props = {
-	checkoutSession: CheckoutSession
+	checkout: Checkout
+	checkoutState: CheckoutState
 }
-const OrderSummary = ({ checkoutSession }: Props) => {
-	const allowOrderToBePlaced = checkoutSession.shippingAddressCompleted && checkoutSession.shippingMethodCompleted && checkoutSession.paymentInfoCompleted
+const OrderSummary = ({ checkout, checkoutState }: Props) => {
+	const allowOrderToBePlaced = checkoutState.shippingAddressCompleted && checkoutState.shippingMethodCompleted && checkoutState.paymentInfoCompleted
 	const [showLoader, setShowLoader] = useState(false)
 	const [errorMsg, setErrorMsg] = useState("")
 
@@ -31,8 +33,8 @@ const OrderSummary = ({ checkoutSession }: Props) => {
 			className="col-span-2 border border-slate-100 rounded-lg p-4 flex-row space-y-3 h-min mb-6 md:mb-0 bg-white shadow-sm">
 			<h1 className="font-semibold text-xl">Order Summary</h1>
 			<div className="flex justify-between pt-2">
-				<h2 className="font-medium text-sm">Items (2)</h2>
-				<h1 className="font-medium text-sm">$100.00</h1>
+				<h2 className="font-medium text-sm">Items ({checkout.cart.totalItems})</h2>
+				<h1 className="font-medium text-sm">${checkout.cart.subtotal}</h1>
 			</div>
 			<div className="flex justify-between">
 				<h2 className="text-sm text-gray-500">Discount</h2>

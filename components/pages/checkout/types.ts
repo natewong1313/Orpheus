@@ -15,3 +15,12 @@ export type CheckoutSession = {
 	setPaymentInfoCompleted: React.Dispatch<React.SetStateAction<boolean>>
 	client: ClientCheckoutSession
 }
+
+export type CheckoutState = {
+	shippingAddressCompleted: boolean
+	shippingMethodCompleted: boolean
+	paymentInfoCompleted: boolean
+	setShippingAddressCompleted: React.Dispatch<React.SetStateAction<boolean>>
+	setShippingMethodCompleted: React.Dispatch<React.SetStateAction<boolean>>
+	setPaymentInfoCompleted: React.Dispatch<React.SetStateAction<boolean>>
+}

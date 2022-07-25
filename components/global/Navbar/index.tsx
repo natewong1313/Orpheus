@@ -59,7 +59,7 @@ const Navbar = () => {
 		{ revalidateOnFocus: false, revalidateIfStale: false }
 	)
 	if (!error && data) {
-		cartItems = data.cart.cartItems
+		cartItems = data.cart.items
 	}
 
 	const cartItemAmount = calcCartItemCount(cartItems)

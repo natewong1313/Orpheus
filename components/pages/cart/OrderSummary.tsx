@@ -1,13 +1,16 @@
 import React, { useState } from "react"
+import { useRouter } from "next/router"
 import Loader from "@/components/global/Loader"
-import type { CartItem } from "@/pages/api/cart/types"
+import type { CartItemInternal } from "@/pages/api/cart/types"
+import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
 import { calcCartItemCount, calcCartItemsTotalPrice } from "@/utils/cartItem"
 
 type Props = {
-	cartItems: CartItem[]
-	onCheckoutBtnClick: () => Promise<void>
+	cartItems: CartItemInternal[]
 }
-const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
+const OrderSummary = ({ cartItems }: Props) => {
+	const router = useRouter()
+	const [showCouponLoader, setShowCouponLoader] = useState(false)
 	const [showLoader, setShowLoader] = useState(false)
 	const [couponInput, setCouponInput] = useState("")
 
@@ -18,6 +21,27 @@ const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 
 	const onCouponBtnClick = () => {
 		
+	}
+
+	const onCheckoutBtnClick = async () => {
+		setShowLoader(true)
+		router.push("/checkout")
+		// setShowLoader(false)
+		// const response = await fetch("/api/checkout/create", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		accept: "application/json",
+		// 		"content-type": "application/json"
+		// 	},
+		// 	body: JSON.stringify({
+		// 		amount: 200.00 * 100
+		// 	})
+		// })
+
+		// const { success }: CheckoutSessionResponse = await response.json()
+		// if (success) {
+		// 	router.push("/checkout")
+		// }
 	}
 
 	return (
@@ -50,11 +74,12 @@ const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-auto sm:ml-3 mt-2 sm:mt-0 hover:bg-gray-800"
 						onClick={onCouponBtnClick}
 					>
-						Apply
+						{/* Apply */}
+						{showCouponLoader ? <Loader size={9} speedMultiplier={0.6}/> : "Apply"}
 					</button>
 				</form>
 				{/* Promo code status */}
-				<p className="pt-2 text-sm font-medium text-emerald-500">STUDENT - 20% off</p>
+				{/* <p className="pt-2 text-sm font-medium text-emerald-500">STUDENT - 20% off</p> */}
 			</div>
 			<div className="flex justify-between">
 				<h2 className="text-sm text-slate-600">Discount</h2>
@@ -71,10 +96,7 @@ const OrderSummary = ({ cartItems, onCheckoutBtnClick }: Props) => {
 			<div>
 				<button
 					className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
-					onClick={async () => {
-						setShowLoader(true)
-						await onCheckoutBtnClick()
-					}}
+					onClick={onCheckoutBtnClick}
 				>
 					{showLoader ? <Loader/> : "Continue to Checkout"}
 

@@ -2,15 +2,18 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { getCookie, setCookie } from "cookies-next"
 import prisma from "@/lib/prisma"
 import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
-import type { Cart, CartItemApiType, Response } from "@/pages/api/cart/types"
+import type { Cart, CartInternal, Response } from "@/pages/api/cart/types"
 
 const stripe = loadStripePrivate()
 
-export function formatCartResponse(cart: Cart): CartItemApiType[]{
-	return cart.cartItems.map(cartItem => ({
-		productId: cartItem.productId,
-		quantity: cartItem.quantity
-	}))
+export function formatCartResponse(cart: CartInternal): Cart{
+	return {
+		items: cart.cartItems.map(cartItem => ({
+			productId: cartItem.productId,
+			quantity: cartItem.quantity
+		})),
+		subtotal: calcCartTotal(cart)
+	}
 }
 
 export async function getCartId(req: NextApiRequest, res: NextApiResponse<Response>) {
@@ -67,13 +70,13 @@ function isValidCartCookie(cartCookie: string | boolean) {
 	return (cartCookie !== undefined && cartCookie !== null && typeof cartCookie === "string")
 }
 
-export async function updateCheckoutTotal(cart: Cart ) {
-	let total = 0
-	for(const cartItem of cart.cartItems){
-		total += cartItem.product.price * cartItem.quantity
-	}
+export async function updateCheckoutTotal(cart: CartInternal) {
 	await stripe.paymentIntents.update(
 		cart.checkoutSession.paymentIntentId,
-		{amount: total*100}
+		{amount: calcCartTotal(cart)*100}
 	)
+}
+
+export function calcCartTotal(cart: CartInternal){
+	return cart.cartItems.reduce((sum, cartItem) => sum + (cartItem.product.price * cartItem.quantity), 0)
 }

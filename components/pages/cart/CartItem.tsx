@@ -2,10 +2,10 @@ import React from "react"
 import Image from "next/image"
 import { CgClose } from "react-icons/cg"
 import { BsQuestionLg } from "react-icons/bs"
-import type { CartItem as CartItemType, Response } from "@/pages/api/cart/types"
+import type { CartItemInternal, Response } from "@/pages/api/cart/types"
 
 type Props = {
-	cartItem: CartItemType
+	cartItem: CartItemInternal
 }
 const CartItem = ({ cartItem }: Props) => {
 	const { product, quantity } = cartItem

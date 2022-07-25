@@ -1,23 +1,29 @@
-import type { Cart as CartType, CartItem as CartItemType, CheckoutSession, Product } from "@prisma/client"
+import type { Cart as CartType, CartItem as CartItemType, Product } from "@prisma/client"
+import type { CheckoutSessionInternal } from "@/pages/api/cart/checkout/types"
 
 export type Response = {
 	success: boolean
 	message?: string
-	cart?: CartItemApiType[]
+	cart?: Cart
 }
 
-export type CartItemApiType = {
+export type Cart = {
+	items: CartItem[]
+	subtotal: number
+}
+
+export type CartItem = {
 	productId: string
 	quantity: number
 }
 
-export type Cart = 
+export type CartInternal =
 	CartType & {
-		cartItems: (CartItem & {
+		cartItems: (CartItemInternal & {
 			product: Product
 		})[],
-		checkoutSession: CheckoutSession
+		checkoutSession: CheckoutSessionInternal
 	}
 
 //  Legacy
-export type CartItem = CartItemType & {product: Product}
+export type CartItemInternal = CartItemType & {product: Product}

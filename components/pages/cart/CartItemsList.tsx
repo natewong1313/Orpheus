@@ -1,9 +1,9 @@
 import React from "react"
 import CartItem from "@/components/pages/cart/CartItem"
-import type { CartItem as CartItemType } from "@/pages/api/cart/types"
+import type { CartItemInternal } from "@/pages/api/cart/types"
 
 type Props = {
-	cartItems: CartItemType[]
+	cartItems: CartItemInternal[]
 }
 const CartItemsList = ({ cartItems }: Props) => {
 	return (

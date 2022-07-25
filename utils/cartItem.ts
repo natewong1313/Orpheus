@@ -1,6 +1,6 @@
-import { CartItem } from "@/pages/api/cart/types"
+import type { CartItemInternal } from "@/pages/api/cart/types"
 
-export function calcCartItemCount(cartItems: CartItem[] | null) {
+export function calcCartItemCount(cartItems: CartItemInternal[] | null) {
 	let cartItemCount = 0
 	if (cartItems) {
 		for (const cartItem of cartItems) {
@@ -10,7 +10,7 @@ export function calcCartItemCount(cartItems: CartItem[] | null) {
 	return cartItemCount
 }
 
-export function calcCartItemsTotalPrice(cartItems: CartItem[] | null) {
+export function calcCartItemsTotalPrice(cartItems: CartItemInternal[] | null) {
 	let subtotal = 0
 	if (cartItems) {
 		for (const cartItem of cartItems) {

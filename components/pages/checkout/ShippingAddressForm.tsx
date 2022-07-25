@@ -9,8 +9,7 @@ import FormSelect from "@/components/pages/checkout/FormSelect"
 import type { FormSelectOption } from "@/components/pages/checkout/FormSelect"
 import Loader from "@/components/global/Loader"
 import type { CheckoutState } from "@/components/pages/checkout/types"
-import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
-import type { Checkout } from "@/pages/api/cart/checkout/types"
+import type { Checkout, Response } from "@/pages/api/cart/checkout/types"
 
 const countries = getCountries()
 
@@ -35,7 +34,7 @@ const ShippingAddressForm = ({ checkout, checkoutState }: Props) => {
 			body: JSON.stringify({ shippingAddress: values })
 		})
 		setShowLoader(false)
-		if (response.status === 200 && (await response.json() as CheckoutSessionResponse).success) {
+		if (response.status === 200 && (await response.json() as Response).success) {
 			setFormSubmitted(true)
 			checkoutState.setShippingAddressCompleted(true)
 		}

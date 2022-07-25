@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useRouter } from "next/router"
 import Loader from "@/components/global/Loader"
 import type { CartItemInternal } from "@/pages/api/cart/types"
-import type { CheckoutSessionResponse } from "@/pages/api/checkout/types"
+import type { Response } from "@/pages/api/cart/checkout/types"
 import { calcCartItemCount, calcCartItemsTotalPrice } from "@/utils/cartItem"
 
 type Props = {

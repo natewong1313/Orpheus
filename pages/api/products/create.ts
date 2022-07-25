@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { z } from "Zod"
+import { z } from "zod"
 import prisma from "@/lib/prisma"
 import type { Response } from "@/pages/api/products/types"
 

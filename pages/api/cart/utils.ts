@@ -6,7 +6,7 @@ import type { Cart, CartInternal, Response } from "@/pages/api/cart/types"
 
 const stripe = loadStripePrivate()
 
-export function formatCartResponse(cart: CartInternal): Cart{
+export function formatCartResponse(cart: CartInternal): Cart {
 	return {
 		items: cart.cartItems.map(cartItem => ({
 			productId: cartItem.productId,
@@ -25,7 +25,7 @@ export async function getCartId(req: NextApiRequest, res: NextApiResponse<Respon
 		const cart = await prisma.cart.findFirst({
 			where: { id: cartId }
 		})
-		if (cart !== null) { 
+		if (cart !== null) {
 			return cartId
 		}
 	}
@@ -60,7 +60,7 @@ async function createNewCart() {
 	})
 	const cart = await prisma.cart.create({
 		data: {
-			checkoutSession: { create: { paymentIntentId: paymentIntent.id as string } },
+			checkoutSession: { create: { paymentIntentId: paymentIntent.id as string } }
 		}
 	})
 	return cart.id
@@ -73,10 +73,10 @@ function isValidCartCookie(cartCookie: string | boolean) {
 export async function updateCheckoutTotal(cart: CartInternal) {
 	await stripe.paymentIntents.update(
 		cart.checkoutSession.paymentIntentId,
-		{amount: calcCartTotal(cart)*100}
+		{ amount: calcCartTotal(cart) * 100 }
 	)
 }
 
-export function calcCartTotal(cart: CartInternal){
+export function calcCartTotal(cart: CartInternal) {
 	return cart.cartItems.reduce((sum, cartItem) => sum + (cartItem.product.price * cartItem.quantity), 0)
 }

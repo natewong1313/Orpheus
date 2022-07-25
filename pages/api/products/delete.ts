@@ -5,7 +5,7 @@ import type { Response } from "@/pages/api/products/types"
 
 const RequestBody = z.object({
 	id: z.string({
-			required_error: "id is required", 
+			required_error: "id is required",
 			invalid_type_error: "id is not of type string"
 		})
 		.min(1, { message: "id cannot be empty" })
@@ -17,14 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 	// Validate request body
 	let id = null
-	try{
+	try {
 		({ id } = RequestBody.parse(req.body))
-	}catch(e){
+	} catch (e) {
 		return res.status(400).json({ success: false, message: e.issues[0].message })
 	}
 
 	try {
-		await prisma.product.delete({where: { id }})
+		await prisma.product.delete({ where: { id } })
 		return res.status(200).json({ success: true })
 	} catch (e) {
 		if (e.code === "P2025") {

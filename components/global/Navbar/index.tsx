@@ -54,9 +54,9 @@ const Navbar = () => {
 	const [showMobileNav, setShowMobileNav] = useState(false)
 
 	let cartItems
-	const { data, error } = useSWR("/api/cart", 
-		(...args) => fetch(...args).then(res => res.json()), 
-		{revalidateOnFocus: false, revalidateIfStale: false}
+	const { data, error } = useSWR("/api/cart",
+		(...args) => fetch(...args).then(res => res.json()),
+		{ revalidateOnFocus: false, revalidateIfStale: false }
 	)
 	if (!error && data) {
 		cartItems = data.cart.cartItems

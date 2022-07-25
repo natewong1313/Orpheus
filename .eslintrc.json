@@ -38,7 +38,8 @@
         "@typescript-eslint/consistent-type-imports": "error",
         "semi": "off",
         "@typescript-eslint/semi": ["error", "never"],
-        "comma-dangle": ["error", "never"]
+        "comma-dangle": ["error", "never"],
+        "no-unused-vars": "warn"
     },
     "globals": {
         "JSX": true

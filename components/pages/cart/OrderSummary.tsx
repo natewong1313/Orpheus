@@ -20,7 +20,7 @@ const OrderSummary = ({ cartItems }: Props) => {
 	const subtotal = cartItemsTotalPrice
 
 	const onCouponBtnClick = () => {
-		
+
 	}
 
 	const onCheckoutBtnClick = async () => {

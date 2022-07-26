@@ -5,7 +5,6 @@ const Document = () => {
 	return (
 		<Html className="h-full">
 			<Head>
-				<title>Orpheus</title>
 			</Head>
 			<body className="h-full">
                 <Main/>

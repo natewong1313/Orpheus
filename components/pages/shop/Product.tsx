@@ -16,8 +16,8 @@ function Product({ product }: Props) {
                             src={product.images[0]}
                             className="w-full aspect-square object-center object-cover group-hover:scale-110 transition ease-in-out duration-150"
                         />
-                        : <div className="bg-gray-50 aspect-square w-full flex items-center justify-center">
-                            <BsQuestionLg size={48} className="text-gray-400"/>
+                        : <div className="bg-gray-100 aspect-square w-full flex items-center justify-center">
+                            <BsQuestionLg size={54} className="text-gray-400"/>
                         </div>
                     }
                 </div>

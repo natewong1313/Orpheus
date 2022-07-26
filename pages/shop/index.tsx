@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import useSWR from "swr"
 import type { Product as ProductType } from "@prisma/client"
 import Navbar from "@/components/global/Navbar"
@@ -7,7 +7,9 @@ import Product from "@/components/pages/shop/Product"
 
 export default function Shop() {
     let products: ProductType[]
-    const { data, error } = useSWR("/api/products",
+    const [sortBy, setSortBy] = useState("newToOld")
+
+    const { data, error } = useSWR(`/api/products?sortBy=${sortBy}`,
 		(...args) => fetch(...args).then(res => res.json()),
 		{ revalidateOnFocus: false, revalidateIfStale: false }
 	)
@@ -26,13 +28,15 @@ export default function Shop() {
                         <h1 className="min-w-fit text-slate-500 text-sm">Sort by:</h1>
                         <select
                             className="block w-44 py-2 px-3 rounded-md text-sm shadow-sm shadow-slate-50 focus:ring-blue-200 focus:border-blue-200 border border-slate-200"
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
                         >
-                            <option>Date, new to old</option>
-                            <option>Date, old to new</option>
-                            <option>Alphabetically, A-Z</option>
-                            <option>Alphabetically, Z-A</option>
-                            <option>Price, low to high</option>
-                            <option>Price, high to low</option>
+                            <option value="newToOld">Date, new to old</option>
+                            <option value="oldToNew">Date, old to new</option>
+                            <option value="aToZ">Alphabetically, A-Z</option>
+                            <option value="zToA">Alphabetically, Z-A</option>
+                            <option value="lowToHigh">Price, low to high</option>
+                            <option value="highToLow">Price, high to low</option>
                         </select>
                     </div>
                 </div>
@@ -41,6 +45,7 @@ export default function Shop() {
                         Filters
                     </div>
                     <div className="flex-1 ">
+                        {/* Products grid */}
                         <div className="grid grid-cols-3 gap-y-6 gap-x-4 pb-6">
                             {products && products.map(product => <Product product={product} key={product.id}/>)}
                         </div>

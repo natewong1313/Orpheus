@@ -22,15 +22,14 @@ const ProductImageGallery = ({ product }: Props) => {
             <div>
                 {/* Main image */}
                 {selectedImg ? (
-                    <div
-                        className="cursor-pointer"
+                    <button
                         onClick={() => {
                             setSelectedPreviewImg(selectedImg)
                             setShowPreviewImageModal(true)
                         }}
                     >
                         <img src={selectedImg} className="w-full object-center object-cover" />
-                    </div>
+                    </button>
                 ) : (
                     <div className="bg-gray-100 aspect-square w-full flex items-center justify-center">
                         <BsQuestionLg size={54} className="text-gray-400" />

@@ -1,21 +1,21 @@
 import React, { Fragment } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import type { Product as ProductType } from "@prisma/client"
+import type { Product } from "@prisma/client"
 
 type Props = {
-    product: ProductType
+    product: Product
     showPreviewImageModal: boolean
     selectedPreviewImg: string
     setShowPreviewImageModal: React.Dispatch<React.SetStateAction<boolean>>
     setSelectedPreviewImg: React.Dispatch<React.SetStateAction<string>>
 }
-function PreviewImageModal({
+const PreviewImageModal = ({
     product,
     showPreviewImageModal,
     selectedPreviewImg,
     setShowPreviewImageModal,
     setSelectedPreviewImg
-}: Props) {
+}: Props) => {
     return (
         <Transition.Root show={showPreviewImageModal} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={setShowPreviewImageModal}>

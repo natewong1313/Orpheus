@@ -5,7 +5,7 @@ import Navbar from "@/components/global/Navbar"
 import Footer from "@/components/global/Footer"
 import Product from "@/components/pages/shop/Product"
 
-export default function Shop() {
+const ShopPage = () => {
     let products: ProductType[]
     const [sortBy, setSortBy] = useState("newToOld")
 
@@ -58,3 +58,5 @@ export default function Shop() {
         </div>
     )
 }
+
+export default ShopPage

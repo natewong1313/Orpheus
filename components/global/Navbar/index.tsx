@@ -8,7 +8,6 @@ import MobileNavPopover from "@/components/global/Navbar/MobileNavPopover"
 import NavbarItem from "@/components/global/Navbar/NavbarItem"
 import NavbarItemWithSubcategory from "@/components/global/Navbar/NavbarItemWithSubcategory"
 import type { NavItem } from "@/components/global/Navbar/types"
-import type { Cart } from "@/pages/api/cart/types"
 import { calcCartItemCount } from "@/utils/cartItem"
 
 const NavItems: NavItem[] = [

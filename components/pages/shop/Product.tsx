@@ -7,7 +7,7 @@ type Props = {
     category: string
     product: ProductType
 }
-function Product({ category, product }: Props) {
+const Product = ({ category, product }: Props) => {
     return (
         <Link
             href={`/shop/${category.toLowerCase()}/product/${product.id}/${product.title.replaceAll(

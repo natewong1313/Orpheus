@@ -116,7 +116,7 @@ const ItemsList = () => {
                                 draggable={false}
                             />
                         </div>
-                        <span className="absolute -top-2 -right-2 block h-5 w-5 rounded-full ring-1 ring-white bg-sky-400 text-white text-xs flex justify-center items-center">
+                        <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full ring-1 ring-white bg-sky-400 text-white text-xs flex justify-center items-center">
                             1
                         </span>
                     </div>

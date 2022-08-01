@@ -4,7 +4,7 @@ import Footer from "@/components/global/Footer"
 import EmptyCart from "@/components/pages/cart/EmptyCart"
 import OrderSummary from "@/components/pages/cart/OrderSummary"
 import CartItemsList from "@/components/pages/cart/CartItemsList"
-import { formatCartResponse, getCart, getCartId } from "@/pages/api/cart/utils"
+import { getCart, getCartId } from "@/pages/api/cart/utils"
 import type { CartInternal } from "@/pages/api/cart/types"
 
 type Props = {

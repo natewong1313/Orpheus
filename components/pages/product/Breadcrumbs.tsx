@@ -7,7 +7,7 @@ type Props = {
         href: string
     }[]
 }
-function Breadcrumbs({ pages }: Props) {
+const Breadcrumbs = ({ pages }: Props) => {
     return (
         <div className="flex items-center space-x-1">
             {pages.map((page, idx) => (

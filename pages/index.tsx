@@ -3,7 +3,7 @@ import Navbar from "@/components/global/Navbar"
 import Footer from "@/components/global/Footer"
 import Hero from "@/components/pages/home/Hero"
 
-export default function Home() {
+const HomePage = () => {
     return (
         <div className="min-h-full relative">
             <Navbar />
@@ -19,3 +19,5 @@ export default function Home() {
         </div>
     )
 }
+
+export default HomePage

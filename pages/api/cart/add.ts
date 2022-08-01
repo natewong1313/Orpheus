@@ -41,14 +41,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         (item) => item.productId === productId
     )
     if (cartItem) {
-        if (cartItem.quantity + 1 > cartItem.product.inventoryCount) {
+        if (cartItem.quantity + quantity > cartItem.product.inventoryCount) {
             return res
                 .status(400)
                 .json({ success: false, message: "Quantity exceeds inventory availability" })
         }
         await prisma.cartItem.update({
             where: { id: cartItem.id },
-            data: { quantity: cartItem.quantity + 1 }
+            data: { quantity: cartItem.quantity + quantity }
         })
     } else {
         try {

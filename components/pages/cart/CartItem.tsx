@@ -31,7 +31,7 @@ const CartItem = ({ cartItem }: Props) => {
     }
     const onDeleteItemBtnClick = async () => {
         const response = await fetch("/api/cart/delete", {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 accept: "application/json",
                 "content-type": "application/json"

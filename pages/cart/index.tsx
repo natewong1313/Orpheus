@@ -21,7 +21,7 @@ const CartPage = ({ cart }: Props) => {
 							<CartItemsList cartItems={cart.cartItems}/>
 							<OrderSummary cartItems={cart.cartItems}/>
 						</div>
-						: <div className="text-center flex flex-col items-center py-10">
+						: <div className="text-center flex flex-col items-center mt-16">
 							<EmptyCart/>
 						</div>
 				}</>

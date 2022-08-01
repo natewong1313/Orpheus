@@ -1,5 +1,6 @@
 import React from "react"
-import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { CgClose } from "react-icons/cg"
 import { BsQuestionLg } from "react-icons/bs"
 import type { CartItemInternal, Response } from "@/pages/api/cart/types"
@@ -8,6 +9,7 @@ type Props = {
 	cartItem: CartItemInternal
 }
 const CartItem = ({ cartItem }: Props) => {
+    const router = useRouter()
 	const { product, quantity } = cartItem
 
 	const onChangeQuantity = async (e) => {
@@ -45,24 +47,27 @@ const CartItem = ({ cartItem }: Props) => {
 	return (
 		<div className="flex flex-row items-center space-x-4 w-full">
 			{/* Product image */}
-			<div className="relative h-32 w-40 rounded-md overflow-hidden">
+			<button
+				className="relative h-32 w-40 rounded-md overflow-hidden cursor-pointer"
+				onClick={() => router.push(`/shop/all/product/${product.id}/${product.title.replaceAll(" ", "-")}`)}
+			>
 				{product.images.length > 0
-					? <Image
+					? <img
 						src={product.images[0]}
-						objectFit="fill"
-						layout="fill"
 						loading="eager"
-						priority={true}
 						draggable={false}
+						className=""
 					/>
 					: <div className="bg-slate-200 h-full flex items-center justify-center">
 						<BsQuestionLg size={48} className="text-gray-400"/>
 					</div>
 				}
-			</div>
+			</button>
 			<div className="flex flex-col space-y-1 w-full">
 				<div className="flex justify-between w-full space-x-2">
-					<h1 className="font-medium">{product.title}</h1>
+					<Link href={`/shop/all/product/${product.id}/${product.title.replaceAll(" ", "-")}`}>
+						<h1 className="font-medium cursor-pointer">{product.title}</h1>
+					</Link>
 					<h1 className="font-semibold flex flex-row items-center">${product.price * quantity}</h1>
 				</div>
 				<div>

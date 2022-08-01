@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { useRouter } from "next/router"
 import Loader from "@/components/global/Loader"
 import type { CartItemInternal } from "@/pages/api/cart/types"
-import type { Response } from "@/pages/api/cart/checkout/types"
 import { calcCartItemCount, calcCartItemsTotalPrice } from "@/utils/cartItem"
 
 type Props = {
@@ -20,28 +19,12 @@ const OrderSummary = ({ cartItems }: Props) => {
 	const subtotal = cartItemsTotalPrice
 
 	const onCouponBtnClick = () => {
-
+		setShowCouponLoader(true)
 	}
 
 	const onCheckoutBtnClick = async () => {
 		setShowLoader(true)
 		router.push("/checkout")
-		// setShowLoader(false)
-		// const response = await fetch("/api/checkout/create", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		accept: "application/json",
-		// 		"content-type": "application/json"
-		// 	},
-		// 	body: JSON.stringify({
-		// 		amount: 200.00 * 100
-		// 	})
-		// })
-
-		// const { success }: CheckoutSessionResponse = await response.json()
-		// if (success) {
-		// 	router.push("/checkout")
-		// }
 	}
 
 	return (
@@ -71,7 +54,7 @@ const OrderSummary = ({ cartItems }: Props) => {
 					</div>
 					<button
 						type="button"
-						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-auto sm:ml-3 mt-2 sm:mt-0 hover:bg-gray-800"
+						className="font-semibold bg-black text-white rounded-md border border-black py-2 px-5 text-sm w-full sm:w-28 sm:ml-3 mt-2 sm:mt-0 hover:bg-gray-800"
 						onClick={onCouponBtnClick}
 					>
 						{/* Apply */}
@@ -90,12 +73,12 @@ const OrderSummary = ({ cartItems }: Props) => {
 				<h1 className="text-sm text-slate-600">$0.00</h1>
 			</div>
 			<div className="flex justify-between border-b border-b-slate-200 pb-5">
-				<h2 className="text-sm font-semibold text-slate-600">Subtotal</h2>
-				<h1 className="text-sm font-semibold text-slate-600">${subtotal}</h1>
+				<h2 className="text-sm font-medium text-black">Subtotal</h2>
+				<h1 className="text-sm font-medium text-black">${subtotal}</h1>
 			</div>
 			<div>
 				<button
-					className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
+					className="bg-sky-500 text-white font-medium rounded-md py-2.5 w-full hover:bg-sky-600"
 					onClick={onCheckoutBtnClick}
 				>
 					{showLoader ? <Loader/> : "Continue to Checkout"}

@@ -31,6 +31,9 @@ const OrderSummary = ({ checkout, checkoutState }: Props) => {
         setShowLoader(false)
         setErrorMsg("Error: " + error.message)
     }
+
+    const hasCoupon = false
+    const totalPrice = checkout.cart.subtotal
     return (
         <div className="col-span-2 border border-slate-100 rounded-lg p-4 flex-row space-y-3 h-min mb-6 md:mb-0 bg-white shadow-sm">
             <h1 className="font-semibold text-xl">Order Summary</h1>
@@ -40,7 +43,9 @@ const OrderSummary = ({ checkout, checkoutState }: Props) => {
             </div>
             <div className="flex justify-between">
                 <h2 className="text-sm text-gray-500">Discount</h2>
-                <h1 className="text-sm text-emerald-500">- $20.00</h1>
+                <h1 className={`text-sm ${hasCoupon ? "text-emerald-500" : "text-gray-500"}`}>
+                    {hasCoupon ? "- $20.00" : "$0.00"}
+                </h1>
             </div>
             <div className="flex justify-between">
                 <h2 className="text-sm text-gray-500">Shipping</h2>
@@ -52,7 +57,7 @@ const OrderSummary = ({ checkout, checkoutState }: Props) => {
             </div>
             <div className="flex justify-between pt-1">
                 <h2 className="font-semibold">Order Total</h2>
-                <h1 className="font-bold text-lg">$80.00</h1>
+                <h1 className="font-bold text-lg">${totalPrice}</h1>
             </div>
             <div className="border-b border-b-slate-100 pb-4">
                 <button

@@ -18,6 +18,7 @@ const OrderSummary = ({ cartItems }: Props) => {
 
     const subtotal = cartItemsTotalPrice
 
+    const hasCoupon = false
     const onCouponBtnClick = () => {
         setShowCouponLoader(true)
     }
@@ -64,7 +65,7 @@ const OrderSummary = ({ cartItems }: Props) => {
             </div>
             <div className="flex justify-between">
                 <h2 className="text-sm text-slate-600">Discount</h2>
-                <h1 className="text-sm text-slate-600">(20%) - $20.00</h1>
+                <h1 className="text-sm text-slate-600">{hasCoupon ? "(20%) - $20.00}" : "$0.00"}</h1>
             </div>
             <div className="flex justify-between">
                 <h2 className="text-sm text-slate-600">Shipping</h2>

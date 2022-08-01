@@ -56,7 +56,7 @@ const Navbar = () => {
 	let cartItems
 	const { data, error } = useSWR("/api/cart",
 		(...args) => fetch(...args).then(res => res.json()),
-		{ revalidateOnFocus: false, revalidateIfStale: false }
+		{ revalidateOnFocus: false }
 	)
 	if (!error && data) {
 		cartItems = data.cart.items

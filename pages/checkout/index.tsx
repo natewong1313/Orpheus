@@ -8,7 +8,7 @@ import ShippingMethodForm from "@/components/pages/checkout/ShippingMethodForm"
 import PaymentInfoForm from "@/components/pages/checkout/PaymentInfoForm"
 import loadStripePublic from "@/lib/stripe/loadStripePublic"
 import { formatCheckoutResponse } from "@/pages/api/cart/checkout/utils"
-import stripeElementOptions from "@/pages/checkout/stripeElementOptions"
+import stripeElementOptions from "@/components/pages/checkout/stripeElementOptions"
 import type { Checkout } from "@/pages/api/cart/checkout/types"
 import type { CheckoutState } from "@/components/pages/checkout/types"
 

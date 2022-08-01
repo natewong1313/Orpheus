@@ -28,7 +28,7 @@ const ProductPage = () => {
     }
 
     const pages = [
-        { name: "Shop", href: "/shop" },
+        { name: "Shop", href: "/shop/all" },
         { name: category && category[0].toUpperCase() + category.slice(1), href: `/shop/${category}` },
         { name: product?.title, href: "#" }
     ]

@@ -24,7 +24,7 @@ const Hero = () => {
                         <h2 className="text-gray-200 font-regular">
                             An open-source ecommerce website template. Customizable and fully functional
                         </h2>
-                        <Link href="/shop">
+                        <Link href="/shop/all">
                             <a className="bg-white rounded-md text-black font-medium py-3 px-6 hover:bg-gray-200">
                                 View Shop
                             </a>

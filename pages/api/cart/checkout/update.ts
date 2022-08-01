@@ -9,6 +9,9 @@ import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
 const stripe = loadStripePrivate()
 
 const RequestBody = z.object({
+    couponCode: z.string({ invalid_type_error: "couponCode is not of type string" })
+        .min(1, { message: "couponCode cannot be empty" })
+        .optional(),
     shippingAddress: z.object({
             firstName: z.string().min(1),
             lastName: z.string().min(1),
@@ -31,9 +34,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	}
 
 	// Validate request body
-	let shippingAddress, shippingMethod
+	let couponCode, shippingAddress, shippingMethod
 	try {
-		({ shippingAddress, shippingMethod } = RequestBody.parse(req.body))
+		({ couponCode, shippingAddress, shippingMethod } = RequestBody.parse(req.body))
 	} catch (e) {
         if (e.issues.path[0] === "shippingAddress") {
             return res.status(400).json({ success: false, message: "Invalid address" })

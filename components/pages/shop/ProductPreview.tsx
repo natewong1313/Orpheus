@@ -7,7 +7,7 @@ type Props = {
     category: string
     product: ProductType
 }
-const Product = ({ category, product }: Props) => {
+const ProductPreview = ({ category, product }: Props) => {
     return (
         <Link
             href={`/shop/${category.toLowerCase()}/product/${product.id}/${product.title.replaceAll(
@@ -29,10 +29,10 @@ const Product = ({ category, product }: Props) => {
                     )}
                 </div>
                 <h1 className="pt-3 font-medium truncate">{product.title}</h1>
-                <h2 className="pt-1 -mt-1 text-slate-500">${product.price}</h2>
+                <h2 className="pt-1 font-medium -mt-1 text-slate-500">${product.price}</h2>
             </a>
         </Link>
     )
 }
 
-export default Product
+export default ProductPreview

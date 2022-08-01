@@ -3,7 +3,7 @@ import useSWR from "swr"
 import type { Product as ProductType } from "@prisma/client"
 import Navbar from "@/components/global/Navbar"
 import Footer from "@/components/global/Footer"
-import Product from "@/components/pages/shop/Product"
+import Product from "@/components/pages/shop/ProductPreview"
 
 const ShopPage = () => {
     let products: ProductType[]

@@ -1,9 +1,9 @@
 import type { CheckoutSession } from "@prisma/client"
 
 export type Response = {
-	success: boolean
-	message?: string
-	checkout?: Checkout
+    success: boolean
+    message?: string
+    checkout?: Checkout
 }
 
 export type Checkout = {

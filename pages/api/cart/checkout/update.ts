@@ -9,10 +9,12 @@ import loadStripePrivate from "@/lib/stripe/loadStripePrivate"
 const stripe = loadStripePrivate()
 
 const RequestBody = z.object({
-    couponCode: z.string({ invalid_type_error: "couponCode is not of type string" })
+    couponCode: z
+        .string({ invalid_type_error: "couponCode is not of type string" })
         .min(1, { message: "couponCode cannot be empty" })
         .optional(),
-    shippingAddress: z.object({
+    shippingAddress: z
+        .object({
             firstName: z.string().min(1),
             lastName: z.string().min(1),
             emailAddress: z.string().min(1),
@@ -24,28 +26,29 @@ const RequestBody = z.object({
             countryName: z.string().min(1)
         })
         .optional(),
-    shippingMethod: z.string({ invalid_type_error: "shippingMethod is not of type string" })
+    shippingMethod: z
+        .string({ invalid_type_error: "shippingMethod is not of type string" })
         .min(1, { message: "shippingMethod cannot be empty" })
         .optional()
 })
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Response>) {
-	if (req.method !== "POST") {
-		return res.status(405).json({ success: false, message: "Request method not allowed" })
-	}
+    if (req.method !== "POST") {
+        return res.status(405).json({ success: false, message: "Request method not allowed" })
+    }
 
-	// Validate request body
-	let couponCode, shippingAddress, shippingMethod
-	try {
-		({ couponCode, shippingAddress, shippingMethod } = RequestBody.parse(req.body))
-	} catch (e) {
+    // Validate request body
+    let couponCode, shippingAddress, shippingMethod
+    try {
+        ;({ couponCode, shippingAddress, shippingMethod } = RequestBody.parse(req.body))
+    } catch (e) {
         if (e.issues.path[0] === "shippingAddress") {
             return res.status(400).json({ success: false, message: "Invalid address" })
         }
-		return res.status(400).json({ success: false, message: e.issues[0].message })
-	}
+        return res.status(400).json({ success: false, message: e.issues[0].message })
+    }
 
-	const cartId = await getCartId(req, res)
-	const cart = await getCart(cartId)
+    const cartId = await getCartId(req, res)
+    const cart = await getCart(cartId)
 
     if (shippingAddress) {
         await prisma.checkoutSession.update({
@@ -83,8 +86,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     const updatedCart = await getCart(cartId)
-	return res.status(200).json({
-		success: true,
+    return res.status(200).json({
+        success: true,
         checkout: await formatCheckoutResponse(updatedCart)
-	})
+    })
 }

@@ -1,10 +1,10 @@
 export type NavItem = {
-	name: string
-	href: string
-	subcategories: SubcategoryItem[]
+    name: string
+    href: string
+    subcategories: SubcategoryItem[]
 }
 
 export type SubcategoryItem = {
-	name: string
-	href: string
+    name: string
+    href: string
 }

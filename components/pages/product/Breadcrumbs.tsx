@@ -3,8 +3,8 @@ import Link from "next/link"
 
 type Props = {
     pages: {
-        name: string;
-        href: string;
+        name: string
+        href: string
     }[]
 }
 function Breadcrumbs({ pages }: Props) {
@@ -13,7 +13,7 @@ function Breadcrumbs({ pages }: Props) {
             {pages.map((page, idx) => (
                 <div className="flex items-center" key={idx}>
                     {/* Divider */}
-                    {idx !== 0 &&
+                    {idx !== 0 && (
                         <svg
                             className="flex-shrink-0 h-5 w-5 text-slate-400"
                             xmlns="http://www.w3.org/2000/svg"
@@ -23,10 +23,14 @@ function Breadcrumbs({ pages }: Props) {
                         >
                             <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
                         </svg>
-                    }
+                    )}
                     <Link href={page.href}>
-                        <a className={`ml-1 text-sm ${idx === pages.length - 1 ? "font-medium text-slate-500" : "text-slate-400"} hover:text-slate-500`}>
-                        {page.name}
+                        <a
+                            className={`ml-1 text-sm ${
+                                idx === pages.length - 1 ? "font-medium text-slate-500" : "text-slate-400"
+                            } hover:text-slate-500`}
+                        >
+                            {page.name}
                         </a>
                     </Link>
                 </div>

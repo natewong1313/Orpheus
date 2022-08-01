@@ -32,7 +32,10 @@ function ProductDetails({ product }: Props) {
             <div className="flex space-x-2">
                 {/* Counter */}
                 <div className="flex rounded-lg border border-slate-200 shadow-sm shadow-slate-50">
-                    <button className="px-4 text-lg text-slate-500 hover:text-black" onClick={() => quantity !== 1 && setQuantity(quantity - 1)}>
+                    <button
+                        className="px-4 text-lg text-slate-500 hover:text-black"
+                        onClick={() => quantity !== 1 && setQuantity(quantity - 1)}
+                    >
                         -
                     </button>
                     <input className="text-center w-8 disabled:bg-white" value={quantity} disabled={true} />
@@ -43,7 +46,11 @@ function ProductDetails({ product }: Props) {
                         +
                     </button>
                 </div>
-                <button type="button" className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600" onClick={onAddToCartBtnClick}>
+                <button
+                    type="button"
+                    className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
+                    onClick={onAddToCartBtnClick}
+                >
                     {showLoader ? <Loader /> : "Add to Cart"}
                 </button>
             </div>

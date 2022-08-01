@@ -23,9 +23,11 @@ export default function Product() {
     const [showPreviewImageModal, setShowPreviewImageModal] = useState(false)
 
     let product: ProductType
-    const { data, error } = useSWR(`/api/products/${id}`,
-                                (...args) => fetch(...args).then(res => res.json()),
-                                { revalidateOnFocus: false })
+    const { data, error } = useSWR(
+        `/api/products/${id}`,
+        (...args) => fetch(...args).then((res) => res.json()),
+        { revalidateOnFocus: false }
+    )
     if (!error && data) {
         product = data.product as ProductType
     }
@@ -46,19 +48,19 @@ export default function Product() {
     const onAddToCartBtnClick = async () => {
         setShowLoader(true)
         const response = await fetch("/api/cart/add", {
-			method: "POST",
-			headers: {
-				accept: "application/json",
-				"content-type": "application/json"
-			},
-			body: JSON.stringify({ productId: product.id, quantity: 1 })
-		})
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ productId: product.id, quantity: 1 })
+        })
         router.push("/cart")
     }
 
     return (
         <div className="min-h-full relative">
-			<Navbar/>
+            <Navbar />
             <div className="max-w-6xl 2xl:max-w-7xl mx-auto py-4 md:py-8 px-4 sm:px-6 md:px-8 pb-20">
                 {/* Breadcrumbs */}
                 <Breadcrumbs pages={pages} />
@@ -67,34 +69,34 @@ export default function Product() {
                     {/* Product images */}
                     <div>
                         {/* Main image */}
-                        {selectedImg
-                            ? <div
+                        {selectedImg ? (
+                            <div
                                 className="cursor-pointer"
                                 onClick={() => {
                                     setSelectedPreviewImg(selectedImg)
                                     setShowPreviewImageModal(true)
                                 }}
                             >
-                                <img src={selectedImg} className="w-full object-center object-cover"/>
+                                <img src={selectedImg} className="w-full object-center object-cover" />
                             </div>
-                            : <div className="bg-gray-100 aspect-square w-full flex items-center justify-center">
-                                <BsQuestionLg size={54} className="text-gray-400"/>
+                        ) : (
+                            <div className="bg-gray-100 aspect-square w-full flex items-center justify-center">
+                                <BsQuestionLg size={54} className="text-gray-400" />
                             </div>
-                        }
+                        )}
                         {/*  Image gallery */}
                         <div className="mt-2.5 flex items-center justify-center">
                             <div className="flex flex-row space-x-4">
-                                {product?.images.map(img =>
-                                    <button
-                                        key={img}
-                                        onClick={() => setSelectedImg(img)}
-                                    >
+                                {product?.images.map((img) => (
+                                    <button key={img} onClick={() => setSelectedImg(img)}>
                                         <img
                                             src={img}
-                                            className={`w-32 ${selectedImg !== img && "opacity-50"} hover:opacity-100 transition duration-150 ease-in-out`}
+                                            className={`w-32 ${
+                                                selectedImg !== img && "opacity-50"
+                                            } hover:opacity-100 transition duration-150 ease-in-out`}
                                         />
                                     </button>
-                                )}
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -110,14 +112,20 @@ export default function Product() {
                                     className="px-4 text-lg text-slate-500 hover:text-black"
                                     onClick={() => quantity !== 1 && setQuantity(quantity - 1)}
                                 >
-                                -
+                                    -
                                 </button>
-                                <input className="text-center w-8 disabled:bg-white" value={quantity} disabled={true}/>
+                                <input
+                                    className="text-center w-8 disabled:bg-white"
+                                    value={quantity}
+                                    disabled={true}
+                                />
                                 <button
                                     className="px-4 text-lg text-slate-500 hover:text-black"
-                                    onClick={() => quantity < product?.inventoryCount + 1 && setQuantity(quantity + 1)}
+                                    onClick={() =>
+                                        quantity < product?.inventoryCount + 1 && setQuantity(quantity + 1)
+                                    }
                                 >
-                                +
+                                    +
                                 </button>
                             </div>
                             <button
@@ -125,7 +133,7 @@ export default function Product() {
                                 className="bg-sky-500 text-white font-medium rounded-md py-2.5 w-full hover:bg-sky-600"
                                 onClick={onAddToCartBtnClick}
                             >
-                                {showLoader ? <Loader/> : "Add to cart"}
+                                {showLoader ? <Loader /> : "Add to cart"}
                             </button>
                         </div>
                         <p className="pt-6 text-slate-600">{product?.description}</p>
@@ -140,7 +148,7 @@ export default function Product() {
                 setShowPreviewImageModal={setShowPreviewImageModal}
                 setSelectedPreviewImg={setSelectedPreviewImg}
             />
-            <Footer/>
+            <Footer />
         </div>
     )
 }

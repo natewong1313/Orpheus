@@ -8,34 +8,36 @@ import { formatCartResponse, getCart, getCartId } from "@/pages/api/cart/utils"
 import type { CartInternal } from "@/pages/api/cart/types"
 
 type Props = {
-	cart: CartInternal
+    cart: CartInternal
 }
 const CartPage = ({ cart }: Props) => {
-	return (
-		<div>
-			<div className="flex flex-col min-h-screen">
-				<Navbar/>
-				<>{
-					cart?.cartItems?.length > 0
-						? <div className="text-left grid grid-cols-1 md:flex md:flex-grow pb-6 sm:pb-0">
-							<CartItemsList cartItems={cart.cartItems}/>
-							<OrderSummary cartItems={cart.cartItems}/>
-						</div>
-						: <div className="text-center flex flex-col items-center mt-16">
-							<EmptyCart/>
-						</div>
-				}</>
-			</div>
-			<Footer/>
-		</div>
-	)
+    return (
+        <div>
+            <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <>
+                    {cart?.cartItems?.length > 0 ? (
+                        <div className="text-left grid grid-cols-1 md:flex md:flex-grow pb-6 sm:pb-0">
+                            <CartItemsList cartItems={cart.cartItems} />
+                            <OrderSummary cartItems={cart.cartItems} />
+                        </div>
+                    ) : (
+                        <div className="text-center flex flex-col items-center mt-16">
+                            <EmptyCart />
+                        </div>
+                    )}
+                </>
+            </div>
+            <Footer />
+        </div>
+    )
 }
 
 export async function getServerSideProps({ req, res }) {
-	const cartId = await getCartId(req, res)
-	const cart = await getCart(cartId)
+    const cartId = await getCartId(req, res)
+    const cart = await getCart(cartId)
 
-	return { props: { cart: JSON.parse(JSON.stringify(cart)) } }
+    return { props: { cart: JSON.parse(JSON.stringify(cart)) } }
 }
 
 export default CartPage

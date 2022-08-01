@@ -9,7 +9,13 @@ type Props = {
     setShowPreviewImageModal: React.Dispatch<React.SetStateAction<boolean>>
     setSelectedPreviewImg: React.Dispatch<React.SetStateAction<string>>
 }
-function PreviewImageModal({ product, showPreviewImageModal, selectedPreviewImg, setShowPreviewImageModal, setSelectedPreviewImg }: Props) {
+function PreviewImageModal({
+    product,
+    showPreviewImageModal,
+    selectedPreviewImg,
+    setShowPreviewImageModal,
+    setSelectedPreviewImg
+}: Props) {
     return (
         <Transition.Root show={showPreviewImageModal} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={setShowPreviewImageModal}>
@@ -38,21 +44,20 @@ function PreviewImageModal({ product, showPreviewImageModal, selectedPreviewImg,
                         >
                             <Dialog.Panel className="relative bg-white rounded-lg overflow-hidden p-4 max-w-5xl w-full shadow-xl transform transition-all">
                                 {/* Main image */}
-                                <img src={selectedPreviewImg} className="w-full object-center object-cover"/>
+                                <img src={selectedPreviewImg} className="w-full object-center object-cover" />
                                 {/*  Image gallery */}
                                 <div className="mt-2 flex items-center justify-center">
                                     <div className="flex flex-row space-x-4">
-                                        {product?.images.map(img =>
-                                            <button
-                                                key={img}
-                                                onClick={() => setSelectedPreviewImg(img)}
-                                            >
+                                        {product?.images.map((img) => (
+                                            <button key={img} onClick={() => setSelectedPreviewImg(img)}>
                                                 <img
                                                     src={img}
-                                                    className={`w-32 ${selectedPreviewImg !== img && "opacity-50"} hover:opacity-100 transition duration-150 ease-in-out`}
+                                                    className={`w-32 ${
+                                                        selectedPreviewImg !== img && "opacity-50"
+                                                    } hover:opacity-100 transition duration-150 ease-in-out`}
                                                 />
                                             </button>
-                                        )}
+                                        ))}
                                     </div>
                                 </div>
                             </Dialog.Panel>
@@ -61,7 +66,7 @@ function PreviewImageModal({ product, showPreviewImageModal, selectedPreviewImg,
                 </div>
             </Dialog>
         </Transition.Root>
-     )
+    )
 }
 
 export default PreviewImageModal

@@ -1,3 +1,3 @@
-## orpheus
+## Orpheus Storefront
 
-work in progress
+[Visit the demo](https://orpheus-nine.vercel.app/)

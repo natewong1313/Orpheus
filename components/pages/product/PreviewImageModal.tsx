@@ -42,9 +42,14 @@ const PreviewImageModal = ({
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative bg-white rounded-lg overflow-hidden p-4 max-w-5xl w-full shadow-xl transform transition-all">
+                            <Dialog.Panel className="relative bg-white rounded-lg overflow-hidden p-4 sm:max-w-lg md:max-w-3xl lg:max-w-5xl shadow-xl transform transition-all">
                                 {/* Main image */}
-                                <img src={selectedPreviewImg} className="w-full object-center object-cover" />
+                                <div className="flex justify-center">
+                                    <img
+                                        src={selectedPreviewImg}
+                                        className=" w-full max-w-3xl object-center object-cover"
+                                    />
+                                </div>
                                 {/*  Image gallery */}
                                 <div className="mt-2 flex items-center justify-center">
                                     <div className="flex flex-row space-x-4">

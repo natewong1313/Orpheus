@@ -13,6 +13,7 @@ datasource db {
 model Product {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   title               String
+  description         String?
   price               Float
   images              String[]
   inventoryCount      Int

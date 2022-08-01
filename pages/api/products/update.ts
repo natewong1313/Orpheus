@@ -17,6 +17,12 @@ const RequestBody = z.object({
 		})
 		.min(1, { message: "title cannot be empty" })
 		.optional(),
+	description: z.string({
+		required_error: "description is required",
+		invalid_type_error: "description is not of type string"
+	})
+	.min(1, { message: "description cannot be empty" })
+	.optional(),
 	price: z.number({
 			required_error: "price is required",
 			invalid_type_error: "price is not of type integer"

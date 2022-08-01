@@ -47,7 +47,13 @@ export default function Shop() {
                     <div className="flex-1 ">
                         {/* Products grid */}
                         <div className="grid grid-cols-3 gap-y-6 gap-x-4 pb-6">
-                            {products && products.map(product => <Product product={product} key={product.id}/>)}
+                            {products && products.map(product =>
+                                <Product
+                                    category="All"
+                                    product={product}
+                                    key={product.id}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

@@ -71,8 +71,12 @@ function isValidCartCookie(cartCookie: string | boolean) {
 }
 
 export async function updateCheckoutTotal(cart: CartInternal) {
+    let total = calcCartTotal(cart)
+    if (total < 1) {
+        total = 1
+    }
     await stripe.paymentIntents.update(cart.checkoutSession.paymentIntentId, {
-        amount: calcCartTotal(cart) * 100
+        amount: Math.round(total * 100.0)
     })
 }
 

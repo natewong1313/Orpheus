@@ -1,16 +1,19 @@
 import React, { useState } from "react"
 import { useRouter } from "next/router"
-import type { Product as ProductType } from "@prisma/client"
+import type { Product } from "@prisma/client"
 import Loader from "@/components/global/Loader"
+import type { Response } from "@/pages/api/cart/types"
 
 type Props = {
-    product: ProductType
+    product: Product
 }
-function ProductDetails({ product }: Props) {
+const ProductDetails = ({ product }: Props) => {
     const router = useRouter()
 
     const [quantity, setQuantity] = useState(1)
     const [showLoader, setShowLoader] = useState(false)
+    const [errorMsg, setErrorMsg] = useState("")
+
     const onAddToCartBtnClick = async () => {
         setShowLoader(true)
         const response = await fetch("/api/cart/add", {
@@ -19,9 +22,15 @@ function ProductDetails({ product }: Props) {
                 accept: "application/json",
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ productId: product.id, quantity: 1 })
+            body: JSON.stringify({ productId: product.id, quantity })
         })
-        router.push("/cart")
+        const responseBody: Response = await response.json()
+        if (responseBody.success) {
+            router.push("/cart")
+        } else {
+            setShowLoader(false)
+            setErrorMsg(responseBody.message)
+        }
     }
 
     return (
@@ -46,13 +55,16 @@ function ProductDetails({ product }: Props) {
                         +
                     </button>
                 </div>
-                <button
-                    type="button"
-                    className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
-                    onClick={onAddToCartBtnClick}
-                >
-                    {showLoader ? <Loader /> : "Add to Cart"}
-                </button>
+                <div className="w-full">
+                    <button
+                        type="button"
+                        className="bg-sky-500 text-white font-semibold rounded-md py-2.5 w-full hover:bg-sky-600"
+                        onClick={onAddToCartBtnClick}
+                    >
+                        {showLoader ? <Loader /> : "Add to Cart"}
+                    </button>
+                    <div className="absolute pt-1 text-sm text-red-600">{errorMsg}</div>
+                </div>
             </div>
             <p className="pt-6 text-slate-600">{product?.description}</p>
         </div>

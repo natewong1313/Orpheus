@@ -3,10 +3,7 @@
         "browser": true,
         "es2021": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "standard"
-    ],
+    "extends": ["plugin:react/recommended", "standard", "prettier"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,31 +12,43 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
+    "plugins": ["react", "@typescript-eslint", "prettier"],
     "rules": {
         "quotes": ["error", "double"],
         "indent": "off",
-        // "@typescript-eslint/indent": ["error", 4],
         "no-tabs": 0,
-        "space-before-function-paren": ["error", {
-            "anonymous": "always",
-            "named": "never",
-            "asyncArrow": "always"
-        }],
-        "eol-last": ["error", "never"],
+        "space-before-function-paren": [
+            "error",
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        // "eol-last": ["error"],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error", {
-            "functions": false
-        }],
-        "keyword-spacing": ["error", { "overrides": {"throw": {"after": false }} }],
+        "@typescript-eslint/no-use-before-define": [
+            "error",
+            {
+                "functions": false
+            }
+        ],
+        "keyword-spacing": ["error", { "overrides": { "throw": { "after": false } } }],
         "@typescript-eslint/consistent-type-imports": "error",
         "semi": "off",
         "@typescript-eslint/semi": ["error", "never"],
         "comma-dangle": ["error", "never"],
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "prettier/prettier": [
+            "error",
+            {
+                "tabWidth": 4,
+                "endOfLine": "auto",
+                "trailingComma": "none",
+                "semi": false,
+                "printWidth": 110
+            }
+        ]
     },
     "globals": {
         "JSX": true
